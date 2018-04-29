@@ -82,6 +82,13 @@ nowhere, I can't think of another place that I'd rather call home.`
     expect(fixture).toMatchSnapshot();
   });
 
+  xit('should match previous snapshot when comments are filled in', () => {
+    instance.form.setValue(feedbackInfo);
+
+    fixture.detectChanges();
+    expect(fixture).toMatchSnapshot();
+  });
+
   xit('should emit an event if a valid form is submitted', () => {
     instance.form.setValue(feedbackInfo);
 
@@ -91,6 +98,14 @@ nowhere, I can't think of another place that I'd rather call home.`
     instance.submit();
 
     expect(instance.submitted.emit).toHaveBeenCalledWith(feedbackInfo);
+  });
+
+  xit('should match previous snapshot if entire form is filled in', () => {
+    const completeInfo = Object.assign({}, contactInfo, feedbackInfo);
+    instance.form.setValue(completeInfo);
+
+    fixture.detectChanges();
+    expect(fixture).toMatchSnapshot();
   });
 
   xit('should emit an event if a complete form is submitted', () => {
