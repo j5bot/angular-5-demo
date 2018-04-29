@@ -5,12 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { EnterFeedbackComponent } from './enter-feedback/enter-feedback.component';
 import { SubmitFeedbackComponent } from './submit-feedback/submit-feedback.component';
+import { EnterButtonComponent } from './enter-button/enter-button.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EnterFeedbackComponent,
-    SubmitFeedbackComponent
+    SubmitFeedbackComponent,
+    EnterButtonComponent
   ],
   imports: [
     BrowserModule, OverlayModule, FormsModule
