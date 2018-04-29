@@ -4,7 +4,7 @@
 
 We are interested in creating a test application to gather feedback from users.  The feedback will be gathered then confirmed in a modal dialog.
 
-### Business Requirements 
+### Business Requirements
 
 The user will visit our homepage (`AppComponent`) and select the "Enter" button.  The "Enter Button" should open a modal over the homepage and create a grey overlay over the homepage.  The first modal presented will be to enter feedback (`EnterFeedbackComponent`).  When the user enters feedback and clicks "Done", the `EnterFeedbackComponent` should be replaced by the `SubmitFeedbackComponent` in the existing modal (a new modal can be used as long as the transition is seamless to the user).  The `SubmitFeedbackComponent` should show the feedback entered on the previous screen.  When the user clicks "Make Changes", the user should return to `EnterFeedbackComponent` with their feedback prefilled.  When the user clicks "Submit", the modal should dismiss and the homepage should be shown.  No API call is needed to persist the feedback at this time.
 
