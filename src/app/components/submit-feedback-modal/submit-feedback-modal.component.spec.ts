@@ -23,9 +23,7 @@ nowhere, I can't think of another place that I'd rather call home.`
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        ReactiveFormsModule
-      ],
+      imports: [],
       declarations: [
         SubmitFeedbackModalComponent
       ]
@@ -43,65 +41,65 @@ nowhere, I can't think of another place that I'd rather call home.`
     expect(instance.title).toBeNonEmptyString();
   });
 
-  xit('should have request message', () => {
+  xit('should have confirmation message', () => {
     expect(instance.message).toBeNonEmptyString();
   });
 
-  xit('should have an empty error message', () => {
-    expect(instance.errorMessage).toBeEmptyString();
-  });
+  xit('should have feedback information', () => {
+    instance.feedback = feedbackInfo;
 
-  xit('should match previous snapshot in default state', () => {
     fixture.detectChanges();
 
-    expect(fixture).toMatchSnapshot();
+    expect(instance.feedback).toBeObject();
+    expect(instance.feedback).toHaveMember('feedback');
+    expect(instance.feedback.feedback).toBeNonEmptyString();
   });
 
-  xit('should disable the submit button if required fields are not entered',
-    () => {
-      instance.filled = false;
-
-      fixture.detectChanges();
-
-      expect(fixture).toMatchSnapshot();
-    });
-
-  xit('should enable the submit button if required fields are entered', () => {
-    instance.filled = true;
+  xit('should render if feedback information is available', () => {
+    instance.feedback = feedbackInfo;
 
     fixture.detectChanges();
 
     expect(fixture).toMatchSnapshot();
   });
 
-  xit('should display an error message if one is set', () => {
-    instance.errorMessage = 'Example error message';
+  xit('should emit an event if confirmation is clicked', () => {
+    instance.feedback = feedbackInfo;
 
     fixture.detectChanges();
 
-    expect(fixture).toMatchSnapshot();
+    spyOn(instance.confirmed, 'emit');
+    instance.confirm();
+
+    expect(instance.confirmed.emit).toHaveBeenCalledWith(feedbackInfo);
   });
 
-  xit('should emit an event if a valid form is submitted', () => {
-    instance.form.setValue(feedbackInfo);
-
-    fixture.detectChanges();
-
-    spyOn(instance.submitted, 'emit');
-    instance.submit();
-
-    expect(instance.submitted.emit).toHaveBeenCalledWith(feedbackInfo);
-  });
-
-  xit('should emit an event if a complete form is submitted', () => {
+  xit('should render if complete feedback is available', () => {
     const completeInfo = Object.assign({}, contactInfo, feedbackInfo);
-    instance.form.setValue(completeInfo);
+    instance.feedback = completeInfo;
 
     fixture.detectChanges();
 
-    spyOn(instance.submitted, 'emit');
-    instance.submit();
-    expect(instance.submitted.emit).toHaveBeenCalledWith(completeInfo);
+    expect(fixture).toMatchSnapshot();
+  });
+
+  xit('should emit an event if a complete form is confirmed', () => {
+    const completeInfo = Object.assign({}, contactInfo, feedbackInfo);
+    instance.feedback = completeInfo;
+
+    fixture.detectChanges();
+
+    spyOn(instance.confirmed, 'emit');
+    instance.confirm();
+    expect(instance.confirmed.emit).toHaveBeenCalledWith(completeInfo);
+  });
+
+  xit('should emit an event if the user wants to make changes', () => {
+    fixture.detectChanges();
+
+    spyOn(instance.toChange, 'emit');
+    instance.change();
+    expect(instance.toChange.emit).toHaveBeenCalledTimes(1);
   });
 
   xit('should emit an event if feedback is cancelled', () => {

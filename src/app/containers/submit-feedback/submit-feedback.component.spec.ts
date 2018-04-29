@@ -2,12 +2,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { StoreModule, Store, combineReducers } from '@ngrx/store';
 
 import { SubmitFeedbackComponent } from './submit-feedback.component';
+import { SubmitFeedbackModalComponent } from '../../components/submit-feedback-modal/submit-feedback-modal.component';
+
 import * as SubmitFeedbackActions from '../../actions';
 import * as fromSubmitFeedback from '../../reducers';
 
 describe('SubmitFeedbackComponent', () => {
   let fixture: ComponentFixture<SubmitFeedbackComponent>;
-  let store: Store<fromApp.State>;
+  let store: Store<fromSubmitFeedback.State>;
   let instance: SubmitFeedbackComponent;
   let dispatch: any;
 
@@ -15,11 +17,12 @@ describe('SubmitFeedbackComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({
-          app: combineReducers(fromSubmitFeedback.reducers)
+          feedback: combineReducers(fromSubmitFeedback.reducers)
         })
       ],
       declarations: [
-        SubmitFeedbackComponent
+        SubmitFeedbackComponent,
+        SubmitFeedbackModalComponent
       ]
     });
 
