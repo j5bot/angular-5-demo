@@ -1,50 +1,37 @@
 import { reducer, defaultState } from './app';
 import * as fromApp from './app';
-import * as AppActions from '../acions/app';
+import * as AppActions from '../actions/app';
 
 describe('AppReducer', () => {
 
+  const state = defaultState;
+
   describe('undefined action', () => {
 
-    it('should return the default state', () => {
-      const action = {} as any;
-      const result = reducer(defaultState, action);
-
-      expect(result).toEqual(defaultState);
-    });
-
-    it('should match the previously defined default state', () => {
-      const action = {} as any;
-      const result = reducer(defaultState, action);
-
-      expect(defaultState).toMatchSnapshot();
-      expect(result).toMatchSnapshot();
-
-      expect(result).toEqual(defaultState);
+    xit('should return the default state and match the previously defined default state', () => {
+      expectDefaultState({ state, reducer });
     });
 
   });
 
   describe('OpenEnterFeedbackModal / OPEN_ENTER_FEEDBACK_MODAL', () => {
 
-    it('should change showEnterFeedback to true', () => {
+    const Action = AppActions.OpenEnterFeedbackModal;
 
-      const event = {} as any;
-      const createAction = new AppActions.OpenEnterFeedbackModal(event);
+    xit('should change showEnterFeedback to true', () => {
+      const input = {} as any;
 
-      const expectedResult = Object.assign({}, defaultState, {
-        error: null,
-        showEnterFeedback: true
+      expectedStateChange({
+        input,
+        Action,
+        reducer,
+        state,
+        change: {
+          error: null,
+          showFeedback: true
+        }
       });
 
-      const result = reducer(defaultState, createAction);
-
-      // when we match both the expected and actual result against the
-      // snapshot, we know that we have object equality, and nothing is broken
-      expect(expectedResult).toMatchSnapshot();
-      expect(result).toMatchSnapshot();
-
-      expect(result).toEqual(expectedResult);
     });
 
   });

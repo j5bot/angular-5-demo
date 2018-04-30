@@ -4,12 +4,12 @@ import { StoreModule, Store, combineReducers } from '@ngrx/store';
 import { EnterFeedbackComponent } from './enter-feedback.component';
 import { EnterFeedbackModalComponent } from '../../components/enter-feedback-modal/enter-feedback-modal.component';
 
-import * as EnterFeedbackActions from '../../actions';
-import * as fromEnterFeedback from '../../reducers';
+import * as EnterFeedbackActions from '../../actions/enter-feedback';
+import * as fromFeedback from '../../reducers/feedback';
 
 describe('EnterFeedbackComponent', () => {
   let fixture: ComponentFixture<EnterFeedbackComponent>;
-  let store: Store<fromEnterFeedback.State>;
+  let store: Store<fromFeedback.State>;
   let instance: EnterFeedbackComponent;
   let dispatch: any;
 
@@ -17,7 +17,7 @@ describe('EnterFeedbackComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({
-          feedback: combineReducers(fromEnterFeedback.reducers)
+          feedback: combineReducers(fromFeedback.reducers)
         })
       ],
       declarations: [
