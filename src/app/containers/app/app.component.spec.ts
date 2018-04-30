@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { StoreModule, Store, combineReducers } from '@ngrx/store';
 
 import { AppComponent } from './app.component';
-import * as AppActions from '../../actions';
-import * as fromApp from '../../reducers';
+import * as AppActions from '../../actions/app';
+import * as fromApp from '../../reducers/app';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
