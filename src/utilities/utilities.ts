@@ -1,11 +1,33 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { Observable } from 'rxjs/observable';
+
+interface AccessorFunctionWrapper {
+  key: string;
+  accessor: Function;
+}
+
+export const createAccessor: Function = (key) => {
+  return (state) => state[ key ];
+};
+
+export const createAccessorFn = function (state, key): AccessorFunctionWrapper {
+  return {
+    key,
+    accessor: createAccessor(state, key)
+  } as AccessorFunctionWrapper;
+};
 
 export const createAccessors = (defaultState) => {
 
+  const cafn = createAccessorFn.bind(null, defaultState);
+
   const accessors = {};
-  Object.keys(defaultState).map( (key) => {
-    accessors[ key ] = (state) => state[ key ];
-  });
+
+  Object.keys(defaultState)
+    .map( cafn )
+    .map( (fn: AccessorFunctionWrapper) => {
+      accessors[ fn.key ] = fn.accessor;
+    });
 
   return accessors;
 
@@ -45,4 +67,14 @@ export const createProperties = (reducers: Object) => {
 
   return properties;
 
+};
+
+export const addPropertyGettersToPrototype = ({
+  Component, selectors, properties }
+) => {
+  properties.map( (prop) => {
+    return Component.prototype[prop] = function () {
+      return this.store.select(selectors[prop]);
+    };
+  });
 };
