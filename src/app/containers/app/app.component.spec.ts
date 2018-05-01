@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { StoreModule, Store, combineReducers } from '@ngrx/store';
 
 import { AppComponent } from './app.component';
@@ -11,11 +11,11 @@ describe('AppComponent', () => {
   let instance: AppComponent;
   let dispatch: any;
 
-  beforeEach(() => {
+  beforeEach( () => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({
-          app: combineReducers(fromApp.reducers)
+          app: fromApp.reducer
         })
       ],
       declarations: [
@@ -26,6 +26,8 @@ describe('AppComponent', () => {
     fixture = TestBed.createComponent(AppComponent);
     store = TestBed.get(Store);
     instance = fixture.componentInstance;
+
+    fixture.detectChanges();
 
     dispatch = spyOn(store, 'dispatch');
   });
@@ -46,13 +48,15 @@ describe('AppComponent', () => {
    * to validate the rendered output and verify the component's output
    * against changes in state.
    */
-   xit('should match the default state snapshot', () => {
-     fixture.detectChanges();
-
+   it('should match the default state snapshot', async(() => {
      expect(fixture).toMatchSnapshot();
+   }));
+
+   xit('should have a title', () => {
+     fixture.detectChanges();
    });
 
-   xit('should dispatch an open enter feedback modal event', () => {
+   it('should dispatch an open enter feedback modal event', () => {
      const $event: any = {};
      const action = new AppActions.OpenEnterFeedbackModal($event);
 
