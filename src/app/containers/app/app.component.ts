@@ -3,7 +3,11 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { State } from '../../reducers';
 import * as AppActions from '../../actions/app';
+import * as fromApp from '../../reducers/app';
 import * as selectors from '../../selectors/selectors';
+import * as utilities from '../../../utilities/utilities';
+
+const propertyTypes = fromApp.defaultPresentationState;
 
 @Component({
   selector: 'app-root',
@@ -11,16 +15,8 @@ import * as selectors from '../../selectors/selectors';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title$: Observable<String>;
-  message$: Observable<String>;
-  showButtonText$: Observable<String>;
 
-  constructor( private store: Store<State>) {
-    this.title$ = this.store.select(selectors.properties.app.title);
-    this.message$ = this.store.select(selectors.properties.app.message);
-    this.showButtonText$ = this.store
-      .select(selectors.properties.app.showButtonText);
-  }
+  constructor( private store: Store<State>) {}
 
   enterFeedback( $event: AppActions.AppActionTypes ) {
     return this.store.dispatch(
@@ -28,3 +24,9 @@ export class AppComponent {
     );
   }
 }
+
+utilities.addPropertyGettersToPrototype({
+  Component: AppComponent,
+  selectors: selectors.properties.app,
+  properties: Object.keys( propertyTypes )
+});
