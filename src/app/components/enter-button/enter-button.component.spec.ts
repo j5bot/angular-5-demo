@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
+import { marbles } from 'rxjs-marbles/jest';
+import { MaterialModule } from '../../../modules/material-module';
+import { createSimpleObservable } from '../../../utilities/utilities';
 
 import { EnterButtonComponent } from './enter-button.component';
 
@@ -21,44 +23,56 @@ describe('EnterButtonComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        ReactiveFormsModule
+        MaterialModule
       ],
       declarations: [
         EnterButtonComponent
       ]
-    });
+    }).compileComponents();
 
     fixture = TestBed.createComponent(EnterButtonComponent);
     instance = fixture.componentInstance;
+
+    fixture.detectChanges();
+
+    instance.text = createSimpleObservable('Foo');
+    instance.icon = createSimpleObservable('chat_bubble_outline');
+    instance.click = ($event) => console.log($event);
+
+    fixture.detectChanges();
+
   });
 
-  xit('should have button text', () => {
-    expect(instance.text).toBeNonEmptyString();
+  it('should compile', () => {
+    expect(instance).toBeTruthy();
+    console.log( Object.keys(instance).join('\n'));
   });
 
-  xit('should have a click handler', () => {
+  it('should have button text', marbles((m) => {
+    const expected = m.cold('a', { a: 'Foo' });
+    m.expect(instance.text).toBeObservable(expected);
+  }));
+
+  it('should have an icon', marbles((m) => {
+    const expected = m.cold('a', { a: 'chat_bubble_outline' });
+    m.expect(instance.icon).toBeObservable(expected);
+  }));
+
+  it('should have a click handler', () => {
     expect(instance.click).toBeFunction();
   });
 
-  xit('should match previous snapshot in default state', () => {
+  it('should match previous snapshot in default state', () => {
     fixture.detectChanges();
 
     expect(fixture).toMatchSnapshot();
   });
 
-  xit('should change the DOM if it has been clicked', () => {
-    instance.clicked = true;
-
-    fixture.detectChanges();
-
-    expect(fixture).toMatchSnapshot();
-  });
-
-  xit('should emit an event if it has been clicked', () => {
-    spyOn(instance.click, 'emit');
+  it('should emit an event if it has been clicked', () => {
+    spyOn(instance, 'click');
     instance.click();
 
-    expect(instance.click.emit).toHaveBeenCalledTimes(1);
+    expect(instance.click).toHaveBeenCalledTimes(1);
   });
 
 });
