@@ -5,6 +5,8 @@ import {
   TestBed,
   tick
 } from '@angular/core/testing';
+import JasmineExpect from 'jasmine-expect';
+
 import { DebugElement } from '@angular/core';
 import { timer } from 'rxjs/observable/timer';
 
@@ -39,18 +41,34 @@ describe('EnterButtonComponent', () => {
     expect(component).toBeTruthy();
   }));
 
+  it('should render a button', async(() => {
+    expect(compiled.querySelector('button')).toBeObject();
+  }));
+
+  it('should have text defined for the button', async(() => {
+    expect(component).toHaveNonEmptyString('text');
+  }));
+
+  it('should render the text in the button', async(() => {
+    expect(compiled.querySelector('button').textContent).toEqual(component.text);
+  }))
+
   it('should start out not having been clicked', async(() => {
-    expect(component.clicked).toBe(false);
+    expect(component.clicked).toBeFalse();
+  }));
+
+  it('should have a click method', async(() => {
+    expect(component.click).toBeFunction();
   }));
 
   it('should be clickable', fakeAsync(() => {
     fixture.detectChanges();
 
-    expect(component.clicked).toBe(false);
+    expect(component.clicked).toBeFalse();
     spyOn(component, 'onClick');
     clickAsync();
     tick(500);
-    expect(component.clicked).toBe(true);
+    expect(component.clicked).toBeTrue();
     expect(component.click).toHaveBeenCalledTimes(1);
   }));
 

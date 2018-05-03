@@ -3,10 +3,11 @@ import {
   ComponentFixture,
   TestBed
 } from '@angular/core/testing';
+import JasmineExpect from 'jasmine-expect';
+
 import { DebugElement } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { EnterButtonComponent } from './enter-button/enter-button.component';
 
 const EXPECTED_APP_TITLE = 'We\'d Love Your Feedback!';
 
@@ -42,11 +43,11 @@ describe('AppComponent', () => {
   }));
 
   it('should render page title in a h1 tag', async(() => {
-    expect(compiled.querySelector('h1').textContent).toContain(app.title);
+    expect(compiled.querySelector('h1').textContent).toEqual(app.title);
   }));
 
   it('should have text defined for the button', async(() => {
-    expect(app.enterText).toBeTruthy();
+    expect(app).toHaveNonEmptyString('enterText');
   }));
 
   it('should render the enter text in a button', async(() => {
@@ -54,15 +55,15 @@ describe('AppComponent', () => {
   }));
 
   it('should be start a state where no modal will be rendered', async(() => {
-    expect(app.showFeedbackModal).toBe(false);
+    expect(app.showFeedbackModal).toBeFalse();
   }));
 
   it('should be able to collect feedback', async(() => {
-    expect(app.feedback).toBeTruthy();
+    expect(app.feedback).toBeObject();
   }));
 
   it('should be able to collect a submission', async(() => {
-    expect(app.submission).toBeTruthy();
+    expect(app.submission).toBeObject();
   }));
 
 });

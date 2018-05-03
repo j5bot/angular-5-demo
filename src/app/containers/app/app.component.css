@@ -1,0 +1,19 @@
+.mat-raised-button.button-with-icon > span {
+  display: flex;
+  flex-direction: row;
+}
+.button-with-icon .mat-icon {
+  margin: 0.2rem 0 0 0.4rem;
+}
+mat-card {
+  align-items: center;
+  border: solid 50px #c0c2c4;
+  border-radius: 55vw;
+  display: flex;
+  flex-direction: column;
+  height: 55vw;
+  justify-content: center;
+  margin: auto;
+  margin-top: 2rem;
+  width: 55vw;
+}
