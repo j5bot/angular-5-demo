@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
+import { DebugElement } from '@angular/core';
+
+import { MaterialModule } from '../../../modules/material-module';
 
 import { EnterButtonComponent } from './enter-button.component';
 
@@ -17,48 +19,62 @@ import { EnterButtonComponent } from './enter-button.component';
 describe('EnterButtonComponent', () => {
   let fixture: ComponentFixture<EnterButtonComponent>;
   let instance: EnterButtonComponent;
+  let debugElement: DebugElement;
+  let nativeElement: any;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        ReactiveFormsModule
+        MaterialModule
       ],
       declarations: [
         EnterButtonComponent
       ]
-    });
+    }).compileComponents();
 
     fixture = TestBed.createComponent(EnterButtonComponent);
     instance = fixture.componentInstance;
+    debugElement = fixture.debugElement;
+    nativeElement = debugElement.nativeElement;
+
+    fixture.detectChanges();
+
+    instance.text = 'Foo';
+    instance.icon = 'chat_bubble_outline';
+    instance.click = ($event) => console.log($event);
+
+    fixture.detectChanges();
+
   });
 
-  xit('should have button text', () => {
+  it('should compile', () => {
+    expect(instance).toBeTruthy();
+    console.log( Object.keys(instance).join('\n'));
+  });
+
+  it('should have button text', () => {
     expect(instance.text).toBeNonEmptyString();
   });
 
-  xit('should have a click handler', () => {
+  it('should have an icon', () => {
+    expect(instance.icon).toBeNonEmptyString();
+  });
+
+  it('should have a click handler', () => {
     expect(instance.click).toBeFunction();
   });
 
-  xit('should match previous snapshot in default state', () => {
+  it('should match previous snapshot in default state', () => {
     fixture.detectChanges();
 
     expect(fixture).toMatchSnapshot();
   });
 
-  xit('should change the DOM if it has been clicked', () => {
-    instance.clicked = true;
-
-    fixture.detectChanges();
-
-    expect(fixture).toMatchSnapshot();
-  });
-
-  xit('should emit an event if it has been clicked', () => {
-    spyOn(instance.click, 'emit');
+  it('should emit an event if it has been clicked', () => {
+    spyOn(instance, 'click');
     instance.click();
 
-    expect(instance.click.emit).toHaveBeenCalledTimes(1);
+    expect(instance.click).toHaveBeenCalledTimes(1);
   });
 
 });

@@ -2,20 +2,20 @@ import { AppActionTypes, AppActions } from '../actions/app';
 import * as utilities from '../../utilities/utilities';
 
 export interface State {
-  title: String;
-  message: String;
-  showButtonText: String;
+  title: string;
+  message: string;
+  showButtonText: string;
   showFeedback: boolean;
   feedback: Object;
   submission: Object;
   error: boolean;
-  errorMessage: String;
+  errorMessage: string;
 }
 
 export const defaultPresentationState = {
-  title: <String> 'What Do You Think About Us?',
-  message: <String> `We're interested in learning your thoughts about our many products and services`,
-  showButtonText: <String> 'Feedback',
+  title: <string> 'What Do You Think About Us?',
+  message: <string> `We're interested in learning your thoughts about our many products and services`,
+  showButtonText: <string> 'Feedback',
   showFeedback: <boolean> false,
 };
 
@@ -23,7 +23,7 @@ export const defaultApplicationState = {
   feedback: <Object> null,
   submission: <Object> null,
   error: <boolean> null,
-  errorMessage: <String> ''
+  errorMessage: <string> ''
 };
 
 export const defaultState: State = Object.assign(
