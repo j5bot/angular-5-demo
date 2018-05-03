@@ -1,7 +1,12 @@
-<h1>
-  Welcome to the feedback modal app!
-</h1>
-<button (click)="enterFeedback()">
-  Enter
-</button>
-
+<mat-toolbar>
+  <h1>{{ title() | async }}</h1>
+</mat-toolbar>
+<mat-card>
+  <p>
+    {{ message() | async }}
+  </p>
+  <app-enter-button
+    [text]="showButtonText() | async"
+    [icon]="'chat_bubble_outline'"
+    [click]="enterFeedback"></app-enter-button>
+</mat-card>

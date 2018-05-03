@@ -2,12 +2,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { StoreModule, Store, combineReducers } from '@ngrx/store';
 
 import { EnterFeedbackComponent } from './enter-feedback.component';
-import * as EnterFeedbackActions from '../../actions';
-import * as fromEnterFeedback from '../../reducers';
+import { EnterFeedbackModalComponent } from '../../components/enter-feedback-modal/enter-feedback-modal.component';
+
+import * as EnterFeedbackActions from '../../actions/enter-feedback';
+import * as fromFeedback from '../../reducers/feedback';
 
 describe('EnterFeedbackComponent', () => {
   let fixture: ComponentFixture<EnterFeedbackComponent>;
-  let store: Store<fromApp.State>;
+  let store: Store<fromFeedback.State>;
   let instance: EnterFeedbackComponent;
   let dispatch: any;
 
@@ -15,11 +17,12 @@ describe('EnterFeedbackComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({
-          app: combineReducers(fromEnterFeedback.reducers)
+          feedback: combineReducers(fromFeedback.reducers)
         })
       ],
       declarations: [
-        EnterFeedbackComponent
+        EnterFeedbackComponent,
+        EnterFeedbackModalComponent
       ]
     });
 

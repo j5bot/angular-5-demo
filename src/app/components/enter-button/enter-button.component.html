@@ -1,3 +1,7 @@
-<p>
-  enter-button works!
-</p>
+<button
+  mat-raised-button
+  color="accent" (click)="onClick($event)"
+  class="button-with-icon"
+  (click)="click($event)">
+  {{ text | uppercase }} <mat-icon>{{ icon }}</mat-icon>
+</button>

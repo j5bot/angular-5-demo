@@ -6,4 +6,4 @@ import 'expect-more-jest';
 
 import 'jest-preset-angular';
 
-import './jest-global-mocks';
+import './modules/jest-global-mocks';

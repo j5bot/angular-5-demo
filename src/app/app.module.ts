@@ -1,4 +1,6 @@
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { BrowserModule } from '@angular/platform-browser';
+import { MaterialModule } from '../modules/material-module';
 import { NgModule } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { FormsModule } from '@angular/forms';
@@ -10,6 +12,7 @@ import { EnterButtonComponent } from './components/enter-button/enter-button.com
 import { EnterFeedbackModalComponent } from './components/enter-feedback-modal/enter-feedback-modal';
 import { SubmitFeedbackModalComponent }
   from './components/submit-feedback-modal/submit-feedback-modal';
+import { reducers } from './reducers';
 
 @NgModule({
   declarations: [
@@ -22,11 +25,11 @@ import { SubmitFeedbackModalComponent }
   ],
   imports: [
     BrowserModule,
+    MaterialModule,
     OverlayModule,
     FormsModule,
-    StoreModule.forRoot({
-
-    })
+    StoreModule.forRoot( reducers ),
+    StoreDevtoolsModule.instrument()
   ],
   providers: [],
   bootstrap: [AppComponent]
