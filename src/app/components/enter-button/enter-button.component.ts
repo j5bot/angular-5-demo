@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Observable } from 'rxjs/observable';
 
 @Component({
   selector: 'app-enter-button',
@@ -6,8 +7,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./enter-button.component.css']
 })
 export class EnterButtonComponent {
-  @Input() text: String;
-  @Input() icon: String;
+  @Input() text: Observable<String>;
+  @Input() icon: Observable<String>;
   @Input() click: Function;
 
   constructor() {

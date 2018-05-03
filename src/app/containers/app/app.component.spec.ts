@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DebugElement } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { marbles } from 'rxjs-marbles/jest';
+import { testObservable } from '../../../../modules/test-utilities';
+
 import { StoreModule, Store } from '@ngrx/store';
 import { reducers, State } from '../../reducers';
 import { Observable } from 'rxjs/Observable';
@@ -11,17 +13,15 @@ import * as AppActions from '../../actions/app';
 import * as fromApp from '../../reducers/app';
 import * as selectors from '../../selectors/selectors';
 
-const defaultState fromApp.defaultPresentationState;
+const defaultState = fromApp.defaultPresentationState;
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let store: Store<State>;
   let instance: AppComponent;
-  let debugElement: DebugElement;
-  let nativeElement: any;
   let dispatch: any;
 
-  beforeEach( () => {
+  beforeAll( () => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule,
@@ -29,17 +29,16 @@ describe('AppComponent', () => {
       ],
       declarations: [
         AppComponent
-      ]
+      ],
+      schemas: [ NO_ERRORS_SCHEMA ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);
     store = TestBed.get(Store);
     instance = fixture.componentInstance as any;
-    debugElement = fixture.debugElement;
-    nativeElement = debugElement.nativeElement;
+  });
 
-    fixture.detectChanges();
-
+  beforeEach( () => {
     dispatch = spyOn(store, 'dispatch');
   });
 
@@ -70,44 +69,48 @@ describe('AppComponent', () => {
    }));
 
    it('should have the default title', marbles((m) => {
-     const expected = m.cold('a', { a: defaultState.title });
-     m.expect(instance.title())
-      .toBeObservable(expected);
-   }));
+
+     async testObservable({
+       fn: fixture.whenStable.bind(fixture),
+       marble: m,
+       expected: defaultState.title,
+       result: instance.title
+     });
+
+    }));
 
    it('should have the default message', marbles((m) => {
-     const expected = m.cold('a', { a: defaultState.message });
-     m.expect(instance.message())
-      .toBeObservable(expected);
+
+     async testObservable({
+       fn: fixture.whenStable.bind(fixture),
+       marble: m,
+       expected: defaultState.message,
+       result: instance.message
+     });
+
    }));
 
    it('should have the default button text', marbles((m) => {
-     const expected = m.cold('a', { a: defaultState.showButtonText });
-     m.expect(instance.showButtonText())
-      .toBeObservable(expected);
+
+     async testObservable({
+       fn: fixture.whenStable.bind(fixture),
+       marble: m,
+       expected: defaultState.showButtonText,
+       result: instance.showButtonText
+     });
+
    }));
 
    it('should start with the feedback modal not shown', marbles((m) => {
-     const expected = m.cold('a', { a: defaultState.showFeedback });
-     m.expect(instance.showFeedback())
-      .toBeObservable(expected);
+
+     async testObservable({
+       fn: fixture.whenStable.bind(fixture),
+       marble: m,
+       expected: defaultState.showFeedback,
+       result: instance.showFeedback
+     });
+
    }));
-
-   it('should render the title', () => {
-     expect(nativeElement.querySelector('h1').textContent)
-      .toContain(defaultState.title);
-   });
-
-   it('should render the message', () => {
-     expect(nativeElement.querySelector('p').textContent)
-      .toContain(defaultState.message);
-   });
-
-   it('should render the button text', () => {
-     expect(
-       nativeElement.querySelector('button').textContent.toLowerCase()
-     ).toContain(defaultState.showButtonText.toLowerCase());
-   });
 
    it('should dispatch an open enter feedback modal event', () => {
      const $event: any = {};

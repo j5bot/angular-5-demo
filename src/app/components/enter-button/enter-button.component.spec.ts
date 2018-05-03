@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { marbles } from 'rxjs-marbles/jest';
+import { createSimpleObservable } from '../../../../modules/test-utilities';
+
 import { MaterialModule } from '../../../modules/material-module';
-import { createSimpleObservable } from '../../../utilities/utilities';
 
 import { EnterButtonComponent } from './enter-button.component';
 
