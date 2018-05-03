@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { marbles } from 'rxjs-marbles/jest';
-import { createSimpleObservable } from '../../../../modules/test-utilities';
+import { DebugElement } from '@angular/core';
 
 import { MaterialModule } from '../../../modules/material-module';
 
@@ -20,6 +19,8 @@ import { EnterButtonComponent } from './enter-button.component';
 describe('EnterButtonComponent', () => {
   let fixture: ComponentFixture<EnterButtonComponent>;
   let instance: EnterButtonComponent;
+  let debugElement: DebugElement;
+  let nativeElement: any;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -33,11 +34,13 @@ describe('EnterButtonComponent', () => {
 
     fixture = TestBed.createComponent(EnterButtonComponent);
     instance = fixture.componentInstance;
+    debugElement = fixture.debugElement;
+    nativeElement = debugElement.nativeElement;
 
     fixture.detectChanges();
 
-    instance.text = createSimpleObservable('Foo');
-    instance.icon = createSimpleObservable('chat_bubble_outline');
+    instance.text = 'Foo';
+    instance.icon = 'chat_bubble_outline';
     instance.click = ($event) => console.log($event);
 
     fixture.detectChanges();
@@ -49,15 +52,13 @@ describe('EnterButtonComponent', () => {
     console.log( Object.keys(instance).join('\n'));
   });
 
-  it('should have button text', marbles((m) => {
-    const expected = m.cold('a', { a: 'Foo' });
-    m.expect(instance.text).toBeObservable(expected);
-  }));
+  it('should have button text', () => {
+    expect(instance.text).toBeNonEmptyString();
+  });
 
-  it('should have an icon', marbles((m) => {
-    const expected = m.cold('a', { a: 'chat_bubble_outline' });
-    m.expect(instance.icon).toBeObservable(expected);
-  }));
+  it('should have an icon', () => {
+    expect(instance.icon).toBeNonEmptyString();
+  });
 
   it('should have a click handler', () => {
     expect(instance.click).toBeFunction();

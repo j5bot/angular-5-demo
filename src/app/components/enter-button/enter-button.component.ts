@@ -7,8 +7,8 @@ import { Observable } from 'rxjs/observable';
   styleUrls: ['./enter-button.component.css']
 })
 export class EnterButtonComponent {
-  @Input() text: Observable<String>;
-  @Input() icon: Observable<String>;
+  @Input() text: string;
+  @Input() icon: string;
   @Input() click: Function;
 
   constructor() {

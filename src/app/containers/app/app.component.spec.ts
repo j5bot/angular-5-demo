@@ -18,7 +18,7 @@ const defaultState = fromApp.defaultPresentationState;
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let store: Store<State>;
-  let instance: AppComponent;
+  let instance: any;
   let dispatch: any;
 
   beforeAll( () => {
@@ -70,7 +70,7 @@ describe('AppComponent', () => {
 
    it('should have the default title', marbles((m) => {
 
-     async testObservable({
+     testObservable({
        fn: fixture.whenStable.bind(fixture),
        marble: m,
        expected: defaultState.title,
@@ -81,7 +81,7 @@ describe('AppComponent', () => {
 
    it('should have the default message', marbles((m) => {
 
-     async testObservable({
+     testObservable({
        fn: fixture.whenStable.bind(fixture),
        marble: m,
        expected: defaultState.message,
@@ -92,7 +92,7 @@ describe('AppComponent', () => {
 
    it('should have the default button text', marbles((m) => {
 
-     async testObservable({
+     testObservable({
        fn: fixture.whenStable.bind(fixture),
        marble: m,
        expected: defaultState.showButtonText,
@@ -103,7 +103,7 @@ describe('AppComponent', () => {
 
    it('should start with the feedback modal not shown', marbles((m) => {
 
-     async testObservable({
+     testObservable({
        fn: fixture.whenStable.bind(fixture),
        marble: m,
        expected: defaultState.showFeedback,

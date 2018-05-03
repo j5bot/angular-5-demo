@@ -30,7 +30,7 @@ export const expectStateChange = (
 // test default state as well
 export const expectDefaultState = expectStateChange;
 
-export const createSimpleObservable(value: any): Observable<any> {
+export const createSimpleObservable = (value: any): Observable<any> => {
   return Observable.create(
     (observer) => observer.next(value)
   );
