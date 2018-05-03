@@ -6,8 +6,6 @@ export interface State {
   message: string;
   showButtonText: string;
   showFeedback: boolean;
-  feedback: Object;
-  submission: Object;
   error: boolean;
   errorMessage: string;
 }
@@ -20,8 +18,6 @@ export const defaultPresentationState = {
 };
 
 export const defaultApplicationState = {
-  feedback: <Object> null,
-  submission: <Object> null,
   error: <boolean> null,
   errorMessage: <string> ''
 };

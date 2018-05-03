@@ -12,7 +12,6 @@ export class EnterButtonComponent {
   @Input() click: Function;
 
   constructor() {
-
   }
 
 }

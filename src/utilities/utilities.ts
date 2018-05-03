@@ -56,9 +56,7 @@ export const addPropertyGettersToPrototype = ({
   Component, selectors, properties }
 ) => {
   properties.map( function getProperty (prop) {
-    console.log(`Adding getter for ${ prop }`);
     return Component.prototype[prop] = function () {
-      console.log(this.store.select(selectors[prop]));
       return this.store.select(selectors[prop]);
     };
   });
