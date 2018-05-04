@@ -2,7 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { StoreModule, Store, combineReducers } from '@ngrx/store';
 
 import { FeedbackComponent } from './feedback.component';
-// import { EnterFeedbackModalComponent } from '../../components/enter-feedback-modal/enter-feedback-modal.component';
+import { EnterFeedbackComponent } from '../enter-feedback/enter-feedback.component';
+import { SubmitFeedbackComponent } from '../submit-feedback/submit-feedback.component';
 
 import * as feedbackActions from '../../actions/feedback';
 import * as fromFeedback from '../../reducers/feedback';
@@ -21,8 +22,9 @@ describe('FeedbackComponent', () => {
         })
       ],
       declarations: [
-        FeedbackComponent
-        // FeedbackModalComponent
+        FeedbackComponent,
+        EnterFeedbackComponent,
+        SubmitFeedbackComponent
       ]
     });
 
@@ -49,13 +51,13 @@ describe('FeedbackComponent', () => {
    * to validate the rendered output and verify the component's output
    * against changes in state.
    */
-   xit('should match previous snapshot', () => {
+   it('should match previous snapshot', () => {
      fixture.detectChanges();
 
      expect(fixture).toMatchSnapshot();
    });
 
-   xit('should dispatch an submit feedback event', () => {
+   it('should dispatch an submit feedback event', () => {
      const $event: any = {};
      const action = new feedbackActions.SubmitFeedback($event);
 
@@ -64,7 +66,7 @@ describe('FeedbackComponent', () => {
      expect(dispatch).toHaveBeenCalledWith(action);
    });
 
-   xit('should dispatch a confirm feedback event', () => {
+   it('should dispatch a confirm feedback event', () => {
      const $event: any = {};
      const action = new feedbackActions.ConfirmFeedback($event);
 
@@ -73,7 +75,7 @@ describe('FeedbackComponent', () => {
      expect(dispatch).toHaveBeenCalledWith(action);
    });
 
-   xit('should dispatch a change feedback event', () => {
+   it('should dispatch a change feedback event', () => {
      const $event: any = {};
      const action = new feedbackActions.ChangeFeedback($event);
 
@@ -82,7 +84,7 @@ describe('FeedbackComponent', () => {
      expect(dispatch).toHaveBeenCalledWith(action);
    });
 
-   xit('should dipatch a cancel feedback event', () => {
+   it('should dipatch a cancel feedback event', () => {
      const $event: any = {};
      const action = new feedbackActions.CancelFeedback($event);
 

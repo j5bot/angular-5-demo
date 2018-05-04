@@ -9,36 +9,42 @@ import * as utilities from '../../../utilities/utilities';
 const propertyTypes = fromFeedback.defaultPresentationState;
 
 @Component({
-  selector: 'app-enter-feedback',
-  templateUrl: './enter-feedback.component.html',
-  styleUrls: ['./enter-feedback.component.css']
+  selector: 'app-feedback',
+  templateUrl: './feedback.component.html',
+  styleUrls: ['./feedback.component.css']
 })
-export class EnterFeedbackComponent {
+export class FeedbackComponent {
 
-  constructor ( private store: Store<State> ) {}
+  constructor( private store: Store<State>) { }
 
-  submitFeedback ( $event: FeedbackActions.FeedbackActionTypes ) {
+  submit ( $event: FeedbackActions.FeedbackActionTypes ) {
     return this.store.dispatch(
       new FeedbackActions.SubmitFeedback($event)
     );
   }
 
-  confirmFeedback ( $event: FeedbackActions.FeedbackActionTypes ) {
+  confirm ( $event: FeedbackActions.FeedbackActionTypes ) {
     return this.store.dispatch(
       new FeedbackActions.ConfirmFeedback($event)
     );
   }
 
-  changeFeedback ( $event: FeedbackActions.FeedbackActionTypes ) {
+  change ( $event: FeedbackActions.FeedbackActionTypes ) {
     return this.store.dispatch(
       new FeedbackActions.ChangeFeedback($event)
     );
   }
 
-  cancelFeedback ( $event: FeedbackActions.FeedbackActionTypes ) {
+  cancel ( $event: FeedbackActions.FeedbackActionTypes ) {
     return this.store.dispatch(
       new FeedbackActions.CancelFeedback($event)
     );
   }
 
 }
+
+utilities.addPropertyGettersToPrototype({
+  Component: FeedbackComponent,
+  selectors: selectors.properties.feedback,
+  properties: Object.keys( propertyTypes )
+});

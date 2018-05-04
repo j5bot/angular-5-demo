@@ -4,7 +4,7 @@ import { StoreModule, Store, combineReducers } from '@ngrx/store';
 import { EnterFeedbackComponent } from './enter-feedback.component';
 import { EnterFeedbackModalComponent } from '../../components/enter-feedback-modal/enter-feedback-modal.component';
 
-import * as EnterFeedbackActions from '../../actions/enter-feedback';
+import * as FeedbackActions from '../../actions/feedback';
 import * as fromFeedback from '../../reducers/feedback';
 
 describe('EnterFeedbackComponent', () => {
@@ -17,7 +17,7 @@ describe('EnterFeedbackComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({
-          feedback: combineReducers(fromFeedback.reducers)
+          feedback: combineReducers(fromFeedback.reducer)
         })
       ],
       declarations: [
@@ -57,7 +57,7 @@ describe('EnterFeedbackComponent', () => {
 
    xit('should dispatch an submit feedback event', () => {
      const $event: any = {};
-     const action = new EnterFeedbackActions.SubmitFeedback($event);
+     const action = new FeedbackActions.SubmitFeedback($event);
 
      instance.submit($event);
 
@@ -66,7 +66,7 @@ describe('EnterFeedbackComponent', () => {
 
    xit('should dipatch a cancel feedback event', () => {
      const $event: any = {};
-     const action = new EnterFeedbackActions.CancelFeedback($event);
+     const action = new FeedbackActions.CancelFeedback($event);
 
      instance.cancel($event);
 
