@@ -1,4 +1,5 @@
 import { async } from '@angular/core/testing';
+import { Action } from '@ngrx/store';
 import { marbles } from 'rxjs-marbles/jest';
 import { Observable } from 'rxjs/observable';
 
@@ -10,11 +11,26 @@ export const expectedState: any = (state, props) => {
 // helper for testing running an action through a reducer to
 // produce a state change
 export const expectStateChange = (
-  { input, Action, reducer, state, change }
+  { input, DispatchedAction, reducer, state, change }:
+  { input?: any,
+    DispatchedAction? any,
+    reducer: any,
+    state: any,
+    change?: any }
+  // {
+  //   // { input = null }: { input?: any },
+  //   // { DispatchedAction = null }: { DispatchedAction?: Action },
+  //   input,
+  //   DispatchedAction,
+  //   reducer,
+  //   state,
+  //   change
+  //   // { change = null }: { change?: Object }
+  // }
 ) => {
 
-  const createAction = Action ?
-    new Action(input ? input : {} as any) :
+  const createAction = DispatchedAction ?
+    new DispatchedAction(input ? input : {} ) :
       {} as any;
 
   const result = reducer(state, createAction);
