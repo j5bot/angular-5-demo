@@ -16,6 +16,7 @@ export const defaultPresentationState = {
   confirmed: <boolean> false,
   feedback: <Feedback> null,
   submission: <Feedback> null,
+  title: <string> `Now's Your Chance!  Think BIG!`
 };
 
 export const defaultApplicationState = {

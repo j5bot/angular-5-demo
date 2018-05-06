@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { StoreModule, Store, combineReducers } from '@ngrx/store';
 
+import { MatInput } from '@angular/material/input';
+import { MatFormField, MatRipple } from '@angular/material';
+
 import { EnterFeedbackComponent } from './enter-feedback.component';
 import { EnterFeedbackModalComponent } from '../../components/enter-feedback-modal/enter-feedback-modal.component';
 
@@ -21,6 +24,9 @@ describe('EnterFeedbackComponent', () => {
         })
       ],
       declarations: [
+        MatInput,
+        MatFormField,
+        MatRipple,
         EnterFeedbackComponent,
         EnterFeedbackModalComponent
       ]

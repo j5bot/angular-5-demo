@@ -1,0 +1,9 @@
+/*
+ import angular material prebuilt themes source so we can directly access
+ colors and other $theme values
+ */
+@import '~@angular/material/theming';
+/* @import './themes/indigo-pink.scss'; */
+/* @import './themes/purple-green.scss'; */
+/* @import './themes/pink-bluegrey.scss'; */
+@import 'deeppurple-amber.scss';

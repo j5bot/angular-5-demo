@@ -1,0 +1,23 @@
+@import './themes/current.scss';
+
+body {
+  box-sizing: border-box;
+}
+
+.mat-dialog-container {
+  h3 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .title {
+      flex: 1 0 calc(100% - 40px);
+    }
+
+    .close-button {
+      flex: 0 0 40px;
+    }
+
+  }
+
+}

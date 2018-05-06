@@ -1,8 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { StoreModule, Store, combineReducers } from '@ngrx/store';
+import {
+  MatIcon,
+  MatDialogContent, MatDialogTitle, MatDialogActions,
+  MatButton, MatFormField, MatRipple } from '@angular/material';
+import {
+  MatInput
+} from '@angular/material/input';
 
 import { FeedbackComponent } from './feedback.component';
-import { EnterFeedbackComponent } from '../enter-feedback/enter-feedback.component';
+import { EnterFeedbackComponent } from '../../components/enter-feedback/enter-feedback.component';
 import { SubmitFeedbackComponent } from '../submit-feedback/submit-feedback.component';
 
 import * as feedbackActions from '../../actions/feedback';
@@ -24,7 +31,15 @@ describe('FeedbackComponent', () => {
       declarations: [
         FeedbackComponent,
         EnterFeedbackComponent,
-        SubmitFeedbackComponent
+        SubmitFeedbackComponent,
+        MatIcon,
+        MatDialogContent,
+        MatDialogTitle,
+        MatDialogActions,
+        MatButton,
+        MatInput,
+        MatFormField,
+        MatRipple
       ]
     });
 
