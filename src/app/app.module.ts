@@ -19,7 +19,6 @@ import { EnterFeedbackModalComponent } from './components/enter-feedback-modal/e
 import { FeedbackComponent } from './containers/feedback/feedback.component';
 import { SubmitFeedbackComponent } from './containers/submit-feedback/submit-feedback.component';
 import { SubmitFeedbackModalComponent } from './components/submit-feedback-modal/submit-feedback-modal.component';
-
 import { reducers } from './reducers';
 
 @NgModule({

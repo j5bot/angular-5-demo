@@ -3,7 +3,7 @@ https://www.xfive.co/blog/testing-angular-faster-jest/
 https://github.com/thymikee/jest-preset-angular
 */
 global['CSS'] = null;
-Error.stackTraceLimit = 5;
+Error.stackTraceLimit = 300;
 
 const mock = () => {
   let storage = {};
