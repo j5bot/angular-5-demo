@@ -5,12 +5,23 @@
   </h3>
 
   <mat-dialog-content class="feedback-form-container">
-    <app-enter-feedback *ngIf="!(submitted() | async)">
+    <app-enter-feedback [ngClass]="{ 'hidden': (submitted() | async) }" (onChange)="changeForm($event)">
     </app-enter-feedback>
-    <app-submit-feedback *ngIf="(submitted && !confirmed) | async">
+    <app-submit-feedback [ngClass]="{ 'hidden': !(submitted() | async) }">
     </app-submit-feedback>
   </mat-dialog-content>
+
   <mat-dialog-actions>
     <button mat-button mat-dialog-close class="cancel-button">CANCEL</button>
+    <button
+      mat-button
+      class="submit-button"
+      [ngClass]="{ 'hidden': (submitted() | async) }"
+      (click)="submit($event)">SUBMIT</button>
+      <button
+        mat-button
+        class="confirm-button"
+        [ngClass]="{ 'hidden': !(submitted() | async) }"
+        (click)="confirm($event)">CONFIRM</button>
   </mat-dialog-actions>
 </div>

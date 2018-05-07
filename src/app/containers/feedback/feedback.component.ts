@@ -26,7 +26,14 @@ const propertyTypes = fromFeedback.defaultPresentationState;
 })
 export class FeedbackComponent {
 
-  constructor( private store: Store<State>) { }
+  constructor( private store: Store<State>) {}
+
+  changeForm ( $event: FeedbackActions.FeedbackActionTypes ) {
+    return this.store.dispatch(
+      // console.log( `dispatching: ${ JSON.stringify( $event ) }`);
+      new FeedbackActions.ChangeForm($event)
+    );
+  }
 
   submit ( $event: FeedbackActions.FeedbackActionTypes ) {
     return this.store.dispatch(

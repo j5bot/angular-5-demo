@@ -15,10 +15,10 @@ import { AppEffects } from './effects/effects';
 import { AppComponent } from './containers/app/app.component';
 import { EnterButtonComponent } from './components/enter-button/enter-button.component';
 import { EnterFeedbackComponent } from './components/enter-feedback/enter-feedback.component';
-import { EnterFeedbackModalComponent } from './components/enter-feedback-modal/enter-feedback-modal.component';
+// import { EnterFeedbackModalComponent } from './components/enter-feedback-modal/enter-feedback-modal.component';
 import { FeedbackComponent } from './containers/feedback/feedback.component';
 import { SubmitFeedbackComponent } from './containers/submit-feedback/submit-feedback.component';
-import { SubmitFeedbackModalComponent } from './components/submit-feedback-modal/submit-feedback-modal.component';
+// import { SubmitFeedbackModalComponent } from './components/submit-feedback-modal/submit-feedback-modal.component';
 import { reducers } from './reducers';
 
 @NgModule({
@@ -26,10 +26,10 @@ import { reducers } from './reducers';
     AppComponent,
     EnterButtonComponent,
     EnterFeedbackComponent,
-    EnterFeedbackModalComponent,
+    // EnterFeedbackModalComponent,
     FeedbackComponent,
     SubmitFeedbackComponent,
-    SubmitFeedbackModalComponent
+    // SubmitFeedbackModalComponent
   ],
   imports: [
     BrowserAnimationsModule,
