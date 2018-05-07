@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Component, ChangeDetectionStrategy, OnChanges } from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs/observable';
 
 import {
   MatIcon,
@@ -23,10 +24,23 @@ const propertyTypes = fromFeedback.defaultPresentationState;
   selector: 'app-feedback',
   templateUrl: './feedback.component.html',
   styleUrls: ['./feedback.component.scss']
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FeedbackComponent {
 
-  constructor( private store: Store<State>) {}
+  isSubmitted$: Observable<boolean>;
+  isConfirmed$: Observable<boolean>;
+  feedback$: Observable<any>;
+
+  constructor( private store: Store<State>) {
+    this.isSubmitted$ = this.store.pipe(select(selectors.properties.feedback.submitted));
+    this.isConfirmed$ = this.store.pipe(select(selectors.properties.feedback.confirmed));
+    this.feedback$ = this.store.pipe(select(selectors.properties.feedback.feedback));
+  }
+
+  ngOnChanges() {
+    debugger;
+  }
 
   changeForm ( $event: FeedbackActions.FeedbackActionTypes ) {
     return this.store.dispatch(

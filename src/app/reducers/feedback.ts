@@ -41,14 +41,14 @@ export function reducer ( state = defaultState, action: any ) {
   switch (action.type) {
     case FeedbackActionTypes.ChangeForm:
       console.log(`received change: ${ JSON.stringify(payload) }`);
-      console.log(`feedback: ${ JSON.stringify(state.feedback, null, 2) }`);
+      console.log(`state: ${ JSON.stringify(state, null, 2) }`);
       return {
         ...state,
         feedback: { ...state.feedback, [payload.field]: payload.value }
       };
 
     case FeedbackActionTypes.SubmitFeedback:
-      debugger;
+      // debugger;
       target = 'feedback';
       flag = 'submitted';
       decorate = {
@@ -66,6 +66,7 @@ export function reducer ( state = defaultState, action: any ) {
 
       // empty submission
       if ( !state.feedback || Object.keys(state.feedback).length === 0 ) {
+        // console.log( JSON.stringify(state.feedback) );
         return {
           ...state,
           error: true,
@@ -83,6 +84,13 @@ export function reducer ( state = defaultState, action: any ) {
           submitted: false
         };
       }
+
+      console.log('new state: ' + JSON.stringify({
+        ...state,
+        [target]: source,
+        [flag]: true,
+        ...decorate
+      }));
 
       return {
         ...state,
