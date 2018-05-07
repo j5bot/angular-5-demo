@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
 import { State } from '../../reducers';
 import * as AppActions from '../../actions/app';
 import * as fromApp from '../../reducers/app';
@@ -12,14 +11,14 @@ const propertyTypes = fromApp.defaultPresentationState;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
 
   constructor( private store: Store<State>) {}
 
-  enterFeedback( $event: AppActions.AppActionTypes ) {
-    return this.store.dispatch(
+  enterFeedback ( $event: AppActions.AppActionTypes ) {
+    return this.store.dispatch.bind(this.store)(
       new AppActions.OpenEnterFeedbackModal($event)
     );
   }

@@ -1,10 +1,17 @@
 import { Action } from '@ngrx/store';
 
 export enum FeedbackActionTypes {
+  ChangeForm = '[ModalFlow] Change Feedback Form Value',
   SubmitFeedback = '[ModalFlow] Submit Feedback Form',
   ConfirmFeedback = '[ModalFlow] Confirm Feedback Form',
   ChangeFeedback = '[ModalFlow] Change Feedback Form',
   CancelFeedback = '[ModalFlow] Cancel Feedback Form'
+}
+
+export class ChangeForm implements Action {
+  readonly type = FeedbackActionTypes.ChangeForm;
+
+  constructor( public payload: any ) {}
 }
 
 export class SubmitFeedback implements Action {
@@ -32,6 +39,7 @@ export class CancelFeedback implements Action {
 }
 
 export type FeedbackActions =
+  | ChangeFeedback
   | SubmitFeedback
   | ConfirmFeedback
   | ChangeFeedback

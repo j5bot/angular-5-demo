@@ -16,6 +16,7 @@ export const defaultPresentationState = {
   confirmed: <boolean> false,
   feedback: <Feedback> null,
   submission: <Feedback> null,
+  title: <string> `Now's Your Chance!  Think BIG!`
 };
 
 export const defaultApplicationState = {
@@ -32,13 +33,22 @@ export const defaultState = Object.assign(
 export function reducer ( state = defaultState, action: any ) {
 
   const payload = action.payload;
-
+  let source;
   let target: string;
   let flag: string;
   let decorate: Object;
 
   switch (action.type) {
+    case FeedbackActionTypes.ChangeForm:
+      console.log(`received change: ${ JSON.stringify(payload) }`);
+      console.log(`feedback: ${ JSON.stringify(state.feedback, null, 2) }`);
+      return {
+        ...state,
+        feedback: { ...state.feedback, [payload.field]: payload.value }
+      };
+
     case FeedbackActionTypes.SubmitFeedback:
+      debugger;
       target = 'feedback';
       flag = 'submitted';
       decorate = {
@@ -46,6 +56,7 @@ export function reducer ( state = defaultState, action: any ) {
         confirmed: false
       };
     case FeedbackActionTypes.ConfirmFeedback:
+      source = state.feedback;
       target = target || 'submission';
       flag = flag || 'confirmed';
       decorate = decorate || {
@@ -54,7 +65,7 @@ export function reducer ( state = defaultState, action: any ) {
       };
 
       // empty submission
-      if ( !payload || Object.keys(payload).length === 0 ) {
+      if ( !state.feedback || Object.keys(state.feedback).length === 0 ) {
         return {
           ...state,
           error: true,
@@ -64,7 +75,7 @@ export function reducer ( state = defaultState, action: any ) {
       }
 
       // required field
-      if ( !payload.feedback ) {
+      if ( !state.feedback.feedback ) {
         return {
           ...state,
           error: true,
@@ -75,7 +86,7 @@ export function reducer ( state = defaultState, action: any ) {
 
       return {
         ...state,
-        [target]: payload,
+        [target]: source,
         [flag]: true,
         ...decorate
       };

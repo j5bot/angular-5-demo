@@ -1,4 +1,4 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector, select } from '@ngrx/store';
 
 export const createAccessor: Function = (key) => {
   return (state) => state[ key ];
@@ -57,7 +57,7 @@ export const addPropertyGettersToPrototype = ({
 ) => {
   properties.map( function getProperty (prop) {
     return Component.prototype[prop] = function () {
-      return this.store.select(selectors[prop]);
+      return this.store.pipe(select(selectors[prop]));
     };
   });
 };
