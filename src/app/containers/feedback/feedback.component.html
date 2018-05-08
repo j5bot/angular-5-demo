@@ -1,31 +1,30 @@
 <div class="mat-typography">
   <h3 mat-dialog-title>
-    <span class="title">{{ title() | async }}</span>
+    <span class="title">{{ title$ | async }}</span>
     <button tabindex="-1" mat-icon-button mat-dialog-close class="close-button"><mat-icon>close</mat-icon></button>
   </h3>
 
   <mat-dialog-content class="feedback-form-container">
-    <app-enter-feedback [ngClass]="{ 'hidden': (isSubmitted$ | async) }" (onChange)="changeForm($event)">
+    <app-enter-feedback [ngClass]="{ 'hidden': (submitted$ | async) }" (onChange)="changeForm($event)">
     </app-enter-feedback>
-    <app-submit-feedback [ngClass]="{ 'hidden': !(isSubmitted$ | async) }">
+    <app-submit-feedback [ngClass]="{ 'hidden': !(submitted$ | async) }">
     </app-submit-feedback>
   </mat-dialog-content>
-  {{ isSubmitted$ | async }} | {{ isConfirmed$ | async }} |
-  {{ submitted() | async }}
+  <!-- <em>submitted:</em> {{ submitted$ | async | json }}
   <pre>
-    {{ feedback$ | async }}
-  </pre>
+    <em>feedback:</em> {{ feedback$ | async | json }}
+  </pre> -->
   <mat-dialog-actions>
     <button mat-button mat-dialog-close class="cancel-button">CANCEL</button>
     <button
       mat-button
       class="submit-button"
-      [ngClass]="{ 'hidden': (isSubmitted$ | async) }"
+      [ngClass]="{ 'hidden': (submitted$ | async) }"
       (click)="submit($event)">SUBMIT</button>
       <button
         mat-button
         class="confirm-button"
-        [ngClass]="{ 'hidden': !(isSubmitted$ | async) }"
+        [ngClass]="{ 'hidden': !(submitted$ | async) }"
         (click)="confirm($event)">CONFIRM</button>
   </mat-dialog-actions>
 </div>

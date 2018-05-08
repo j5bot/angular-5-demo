@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Observable } from 'rxjs/observable';
 
 @Component({
   selector: 'app-enter-button',

@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs/observable';
+
 export class Feedback {
 
   constructor(
@@ -6,5 +8,17 @@ export class Feedback {
     public email?: string,
     public phone?: string
   ) {}
+
+}
+
+export class FeedbackState {
+
+  submitted: Observable<boolean>;
+  confirmed: Observable<boolean>;
+  error: Observable<boolean>;
+  errorMessage: Observable<string>;
+
+  feedback: Observable<Feedback>;
+  submission: Observable<Feedback>;
 
 }

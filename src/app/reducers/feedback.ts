@@ -1,8 +1,8 @@
-import { FeedbackActionTypes, FeedbackActions } from '../actions/feedback';
+import { FeedbackActionTypes } from '../actions/feedback';
 import { Feedback } from '../models/feedback';
-import * as utilities from '../../utilities/utilities';
 
 export interface State {
+  title: string;
   submitted: boolean;
   confirmed: boolean;
   feedback: Feedback;
@@ -12,11 +12,11 @@ export interface State {
 }
 
 export const defaultPresentationState = {
+  title: <string> `Now's Your Chance!  Think BIG!`,
   submitted: <boolean> false,
   confirmed: <boolean> false,
   feedback: <Feedback> null,
-  submission: <Feedback> null,
-  title: <string> `Now's Your Chance!  Think BIG!`
+  submission: <Feedback> null
 };
 
 export const defaultApplicationState = {
@@ -40,21 +40,19 @@ export function reducer ( state = defaultState, action: any ) {
 
   switch (action.type) {
     case FeedbackActionTypes.ChangeForm:
-      console.log(`received change: ${ JSON.stringify(payload) }`);
-      console.log(`state: ${ JSON.stringify(state, null, 2) }`);
       return {
         ...state,
         feedback: { ...state.feedback, [payload.field]: payload.value }
       };
 
     case FeedbackActionTypes.SubmitFeedback:
-      // debugger;
       target = 'feedback';
       flag = 'submitted';
       decorate = {
         submission: null,
         confirmed: false
       };
+
     case FeedbackActionTypes.ConfirmFeedback:
       source = state.feedback;
       target = target || 'submission';
@@ -66,7 +64,6 @@ export function reducer ( state = defaultState, action: any ) {
 
       // empty submission
       if ( !state.feedback || Object.keys(state.feedback).length === 0 ) {
-        // console.log( JSON.stringify(state.feedback) );
         return {
           ...state,
           error: true,
@@ -85,13 +82,6 @@ export function reducer ( state = defaultState, action: any ) {
         };
       }
 
-      console.log('new state: ' + JSON.stringify({
-        ...state,
-        [target]: source,
-        [flag]: true,
-        ...decorate
-      }));
-
       return {
         ...state,
         [target]: source,
@@ -102,5 +92,3 @@ export function reducer ( state = defaultState, action: any ) {
   }
   return state;
 }
-
-export const accessors = utilities.createAccessors( defaultState );

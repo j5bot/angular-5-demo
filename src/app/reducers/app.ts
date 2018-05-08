@@ -1,5 +1,4 @@
 import { AppActionTypes, AppActions } from '../actions/app';
-import * as utilities from '../../utilities/utilities';
 
 export interface State {
   title: string;
@@ -43,5 +42,3 @@ export function reducer ( state = defaultState, action: AppActions ): State {
   return defaultState;
 
 }
-
-export const accessors = utilities.createAccessors( defaultState );
