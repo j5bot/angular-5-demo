@@ -6,6 +6,7 @@ import {
   MatIcon,
   MatButton,
   MatDialog,
+  MatDialogRef,
   MatDialogActions,
   MatDialogClose,
   MatDialogContent,
@@ -31,7 +32,10 @@ export class FeedbackComponent {
   error$: Observable<boolean>;
   errorMessage$: Observable<string>;
 
-  constructor( private store: Store<fromFeedback.State>) {
+  constructor(
+    public dialogRef: MatDialogRef<FeedbackComponent>,
+    private store: Store<fromFeedback.State>
+  ) {
 
     this.title$ = this.store.pipe(select(
       selectors.getFeedbackTitle
@@ -76,6 +80,7 @@ export class FeedbackComponent {
   }
 
   confirm ( $event: FeedbackActions.FeedbackActionTypes ) {
+    this.dialogRef.close();
     return this.store.dispatch(
       new FeedbackActions.ConfirmFeedback($event)
     );

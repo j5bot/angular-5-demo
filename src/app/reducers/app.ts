@@ -37,8 +37,15 @@ export function reducer ( state = defaultState, action: AppActions ): State {
         showFeedback: true
       };
 
+    case AppActionTypes.CloseEnterFeedbackModal:
+      return {
+        ...state,
+        error: null,
+        showFeedback: false
+      };
+
   }
 
-  return defaultState;
+  return state;
 
 }
