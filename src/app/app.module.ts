@@ -2,7 +2,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { EffectsModule } from '@ngrx/effects';
 // import { FormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -16,7 +16,7 @@ import { AppComponent } from './containers/app/app.component';
 import { EnterButtonComponent } from './components/enter-button/enter-button.component';
 import { FeedbackComponent } from './containers/feedback/feedback.component';
 import { EnterFeedbackComponent } from './components/enter-feedback/enter-feedback.component';
-import { SubmitFeedbackComponent } from './containers/submit-feedback/submit-feedback.component';
+import { SubmitFeedbackComponent } from './components/submit-feedback/submit-feedback.component';
 import { reducers } from './reducers';
 
 @NgModule({
@@ -46,6 +46,7 @@ import { reducers } from './reducers';
   providers: [
     MaterialModule
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule { }

@@ -45,6 +45,12 @@ export function reducer ( state = defaultState, action: any ) {
         feedback: { ...state.feedback, [payload.field]: payload.value }
       };
 
+    case FeedbackActionTypes.ChangeFeedback:
+      return {
+        ...state,
+        submitted: false
+      };
+
     case FeedbackActionTypes.SubmitFeedback:
       target = 'feedback';
       flag = 'submitted';

@@ -9,6 +9,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { map, switchMap } from 'rxjs/operators';
 
 import { AppActionTypes } from '../actions/app';
+import { FeedbackActionTypes } from '../actions/feedback';
 import { FeedbackComponent } from '../containers/feedback/feedback.component';
 
 const toPayload = (action) => action.payload;

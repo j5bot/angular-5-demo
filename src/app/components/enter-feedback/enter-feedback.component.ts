@@ -1,4 +1,4 @@
-import { Output, Component, EventEmitter } from '@angular/core';
+import { Input, Output, Component, EventEmitter } from '@angular/core';
 import { MatFormField, MatRipple } from '@angular/material';
 import { MatInput } from '@angular/material/input';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
