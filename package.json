@@ -1,7 +1,7 @@
 {
-  "name": "angular-template",
+  "name": "sturdy-robot",
   "description": "",
-  "homepage": "https://stackblitz.com/edit/angular-wchgre",
+  "homepage": "https://github.com/j5bot/sturdy-robot",
   "dependencies": {
     "@angular/animations": "5.2.10",
     "@angular/cdk": "^5.2.5",
@@ -22,8 +22,8 @@
     "rxjs": "^5.5.10",
     "zone.js": "^0.8.26"
   },
-  "version": "0.0.0",
-  "license": "MIT",
+  "version": "0.2.0",
+  "license": "NONE",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

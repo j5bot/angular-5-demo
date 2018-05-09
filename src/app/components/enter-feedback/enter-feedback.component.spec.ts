@@ -5,7 +5,7 @@ import { testObservable } from '../../../../modules/test-utilities';
 
 import { StoreModule, Store } from '@ngrx/store';
 import { reducers, State } from '../../reducers';
-import { Observable } from 'rxjs/observable';
+import { Observable } from 'rxjs/Observable';
 import { MaterialModule } from '../../../modules/material-module';
 
 //import { MatInput } from '@angular/material/input';

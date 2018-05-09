@@ -1,7 +1,7 @@
 import { async } from '@angular/core/testing';
 import { Action } from '@ngrx/store';
 import { marbles } from 'rxjs-marbles/jest';
-import { Observable } from 'rxjs/observable';
+import { Observable } from 'rxjs/Observable';
 
 // helper for computing a state change result
 export const expectedState: any = (state, props) => {
