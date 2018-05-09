@@ -20,4 +20,19 @@ body {
 
   }
 
+  .mat-dialog-content {
+    min-height: 436.25px;
+  }
+
+  .cancel-actions {
+    display: flex;
+    justify-content: flex-start;
+    flex: 1 1 60%;
+  }
+  .continue-actions {
+    display: flex;
+    justify-content: flex-end;
+    flex: 0 0 40%;
+  }
+
 }
