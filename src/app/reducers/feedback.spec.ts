@@ -37,12 +37,12 @@ nowhere, I can't think of another place that I'd rather call home.`
 
   describe('CancelFeedback', () => {
 
-    const DispatchedAction = FeedbackActions.CancelFeedback;
+    const CancelAction = FeedbackActions.CancelFeedback;
 
     it('should clear the form and hide the modal', () => {
 
       testUtilities.expectStateChange({
-        DispatchedAction,
+        DispatchedAction: CancelAction,
         state,
         reducer,
         change: {
@@ -60,18 +60,19 @@ nowhere, I can't think of another place that I'd rather call home.`
 
     describe('SubmitFeedback / SUBMIT_FEEDBACK', () => {
 
-      const DispatchedAction = FeedbackActions.SubmitFeedback;
+      const SubmitAction = FeedbackActions.SubmitFeedback;
+      const ChangeAction = FeedbackActions.ChangeForm;
 
       it('should reject an empty object', () => {
 
         testUtilities.expectStateChange({
           input: noFeedback,
-          DispatchedAction,
+          DispatchedAction: SubmitAction,
           reducer,
           state,
           change: {
             error: true,
-            errorMessage: 'You must enter feedback to continue.'
+            errorMessage: 'You must enter feedback to continue.',
             submitted: false
           }
         });
@@ -83,13 +84,12 @@ nowhere, I can't think of another place that I'd rather call home.`
         const input = completeContactInfo;
 
         testUtilities.expectStateChange({
-          input,
-          DispatchedAction,
-          state,
+          DispatchedAction: SubmitAction,
+          state: { ...state, feedback: input },
           reducer,
           change: {
             error: true,
-            errorMessage: 'You must include feedback with your submission.'
+            errorMessage: 'You must include feedback with your submission.',
             submitted: false
           }
         });
@@ -100,10 +100,9 @@ nowhere, I can't think of another place that I'd rather call home.`
         const input = feedbackInfo;
 
         testUtilities.expectStateChange({
-          input,
-          DispatchedAction,
+          DispatchedAction: SubmitAction,
           reducer,
-          state,
+          state: { ...state, feedback: input },
           change: {
             error: null,
             feedback: input,
@@ -117,10 +116,9 @@ nowhere, I can't think of another place that I'd rather call home.`
         const input = fullFeedback;
 
         testUtilities.expectStateChange({
-          input,
-          DispatchedAction,
+          DispatchedAction: SubmitAction,
           reducer,
-          state,
+          state: { ...state, feedback: input },
           change: {
             error: null,
             feedback: input,
@@ -138,16 +136,15 @@ nowhere, I can't think of another place that I'd rather call home.`
 
     describe('ConfirmFeedback / CONFIRM_FEEDBACK', () => {
 
-      const DispatchedAction = FeedbackActions.ConfirmFeedback;
+      const ConfirmAction = FeedbackActions.ConfirmFeedback;
 
       it('should throw an error when the feedback object is incomplete', () => {
 
         const input = noFeedback;
 
         testUtilities.expectStateChange({
-          input,
-          DispatchedAction,
-          state,
+          DispatchedAction: ConfirmAction,
+          state: { ...state, feedback: input },
           reducer,
           change: {
             error: true,
@@ -163,9 +160,8 @@ nowhere, I can't think of another place that I'd rather call home.`
         const input = completeContactInfo;
 
         testUtilities.expectStateChange({
-          input,
-          DispatchedAction,
-          state,
+          DispatchedAction: ConfirmAction,
+          state: { ...state, feedback: input },
           reducer,
           change: {
             error: true,
@@ -181,10 +177,9 @@ nowhere, I can't think of another place that I'd rather call home.`
         const input = feedbackInfo;
 
         testUtilities.expectStateChange({
-          input,
-          DispatchedAction,
+          DispatchedAction: ConfirmAction,
           reducer,
-          state,
+          state: { ...state, feedback: input },
           change: {
             error: null,
             submission: input,
@@ -200,10 +195,9 @@ nowhere, I can't think of another place that I'd rather call home.`
         const input = fullFeedback;
 
         testUtilities.expectStateChange({
-          input,
-          DispatchedAction,
+          DispatchedAction: ConfirmAction,
           reducer,
-          state,
+          state: { ...state, feedback: input },
           change: {
             error: null,
             submission: input,
@@ -219,12 +213,12 @@ nowhere, I can't think of another place that I'd rather call home.`
 
     describe('ChangeFeedback / CHANGE_FEEDBACK', () => {
 
-      const DispatchedAction = FeedbackActions.ChangeFeedback;
+      const ChangeAction = FeedbackActions.ChangeFeedback;
 
       it('should return user to the feedback form', () => {
 
         testUtilities.expectStateChange({
-          DispatchedAction,
+          DispatchedAction: ChangeAction,
           reducer,
           state,
           change: {

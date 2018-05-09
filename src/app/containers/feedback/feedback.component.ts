@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs/observable';
 
 import {
   MatIcon,
@@ -11,13 +12,9 @@ import {
   MatDialogTitle
 } from '@angular/material';
 
-import { State } from '../../reducers';
 import * as FeedbackActions from '../../actions/feedback';
 import * as fromFeedback from '../../reducers/feedback';
 import * as selectors from '../../selectors/selectors';
-import * as utilities from '../../../utilities/utilities';
-
-const propertyTypes = fromFeedback.defaultPresentationState;
 
 @Component({
   selector: 'app-feedback',
@@ -26,11 +23,48 @@ const propertyTypes = fromFeedback.defaultPresentationState;
 })
 export class FeedbackComponent {
 
-  constructor( private store: Store<State>) {}
+  title$: Observable<string>;
+  submitted$: Observable<boolean>;
+  confirmed$: Observable<boolean>;
+  feedback$: Observable<any>;
+  submission$: Observable<any>;
+  error$: Observable<boolean>;
+  errorMessage$: Observable<string>;
+
+  constructor( private store: Store<fromFeedback.State>) {
+
+    this.title$ = this.store.pipe(select(
+      selectors.getFeedbackTitle
+    ));
+
+    this.submitted$ = this.store.pipe(select(
+      selectors.getFeedbackSubmitted
+    ));
+
+    this.confirmed$ = this.store.pipe(select(
+      selectors.getFeedbackConfirmed
+    ));
+
+    this.feedback$ = this.store.pipe(select(
+      selectors.getFeedbackFeedback
+    ));
+
+    this.submission$ = this.store.pipe(select(
+      selectors.getFeedbackSubmission
+    ));
+
+    this.error$ = this.store.pipe(select(
+      selectors.getFeedbackError
+    ));
+
+    this.errorMessage$ = this.store.pipe(select(
+      selectors.getFeedbackErrorMessage
+    ));
+
+  }
 
   changeForm ( $event: FeedbackActions.FeedbackActionTypes ) {
     return this.store.dispatch(
-      // console.log( `dispatching: ${ JSON.stringify( $event ) }`);
       new FeedbackActions.ChangeForm($event)
     );
   }
@@ -60,9 +94,3 @@ export class FeedbackComponent {
   }
 
 }
-
-utilities.addPropertyGettersToPrototype({
-  Component: FeedbackComponent,
-  selectors: selectors.properties.feedback,
-  properties: Object.keys( propertyTypes )
-});

@@ -1,8 +1,8 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { EffectsModule } from '@ngrx/effects';
-import { FormsModule } from '@angular/forms';
-import { NgModule } from '@angular/core';
+// import { FormsModule } from '@angular/forms';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -14,11 +14,9 @@ import { AppEffects } from './effects/effects';
 
 import { AppComponent } from './containers/app/app.component';
 import { EnterButtonComponent } from './components/enter-button/enter-button.component';
-import { EnterFeedbackComponent } from './components/enter-feedback/enter-feedback.component';
-// import { EnterFeedbackModalComponent } from './components/enter-feedback-modal/enter-feedback-modal.component';
 import { FeedbackComponent } from './containers/feedback/feedback.component';
-import { SubmitFeedbackComponent } from './containers/submit-feedback/submit-feedback.component';
-// import { SubmitFeedbackModalComponent } from './components/submit-feedback-modal/submit-feedback-modal.component';
+import { EnterFeedbackComponent } from './components/enter-feedback/enter-feedback.component';
+import { SubmitFeedbackComponent } from './components/submit-feedback/submit-feedback.component';
 import { reducers } from './reducers';
 
 @NgModule({
@@ -26,30 +24,29 @@ import { reducers } from './reducers';
     AppComponent,
     EnterButtonComponent,
     EnterFeedbackComponent,
-    // EnterFeedbackModalComponent,
     FeedbackComponent,
     SubmitFeedbackComponent,
-    // SubmitFeedbackModalComponent
   ],
   imports: [
     BrowserAnimationsModule,
     BrowserModule,
     EffectsModule.forRoot([AppEffects]),
-    FormsModule,
+    // FormsModule,
     MaterialModule,
     OverlayModule,
     ReactiveFormsModule,
-    StoreDevtoolsModule.instrument(),
-    StoreModule.forRoot( reducers )
+    StoreModule.forRoot( reducers ),
+    StoreDevtoolsModule.instrument()
   ],
   entryComponents: [
-    EnterFeedbackComponent,
     FeedbackComponent,
+    EnterFeedbackComponent,
     SubmitFeedbackComponent
   ],
   providers: [
     MaterialModule
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule { }

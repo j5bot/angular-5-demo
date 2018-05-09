@@ -1,20 +1,20 @@
 import {
-  ActionReducerMap,
-  createSelector,
-  createFeatureSelector,
-  ActionReducer,
-  MetaReducer,
+  ActionReducerMap
 } from '@ngrx/store';
 
-import * as app from './app';
-import * as feedback from './feedback';
+import {
+  State as appState,
+  reducer as appReducer } from './app';
+import {
+  State as feedbackState,
+  reducer as feedbackReducer } from './feedback';
 
 export interface State {
-  app: app.State;
-  feedback: feedback.State;
+  app: appState;
+  feedback: feedbackState;
 }
 
 export const reducers: ActionReducerMap<State> = {
-  app: app.reducer,
-  feedback: feedback.reducer
+  app: appReducer,
+  feedback: feedbackReducer
 };

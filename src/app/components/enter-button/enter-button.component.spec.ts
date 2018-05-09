@@ -49,7 +49,6 @@ describe('EnterButtonComponent', () => {
 
   it('should compile', () => {
     expect(instance).toBeTruthy();
-    console.log( Object.keys(instance).join('\n'));
   });
 
   it('should have button text', () => {

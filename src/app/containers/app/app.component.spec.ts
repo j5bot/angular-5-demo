@@ -18,7 +18,7 @@ const defaultState = fromApp.defaultPresentationState;
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let store: Store<State>;
-  let instance: any;
+  let instance: AppComponent;
   let dispatch: any;
 
   beforeAll( () => {
