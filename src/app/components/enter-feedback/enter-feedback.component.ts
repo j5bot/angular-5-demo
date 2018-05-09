@@ -10,11 +10,11 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 })
 export class EnterFeedbackComponent {
 
-  feedbackForm: FormGroup;
+  @Input() feedback: any;
   @Output() onChange = new EventEmitter<any>();
+  feedbackForm: FormGroup;
   name: string;
   ffJSON: string;
-  feedback: string;
 
   constructor ( private formBuilder: FormBuilder) {
     this.createForm();
@@ -29,6 +29,9 @@ export class EnterFeedbackComponent {
 
   createForm () {
     this.feedbackForm = this.formBuilder.group( this.formDefinition );
+    if ( this.feedback ) {
+      this.feedbackForm.setValue( this.feedback );
+    }
     this.setupEmitOnChange();
 
     const fields = ['name', 'feedback'];
