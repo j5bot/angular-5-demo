@@ -1,13 +1,10 @@
 import { AppActionTypes, AppActions } from '../actions/app';
-import * as utilities from '../../utilities/utilities';
 
 export interface State {
   title: string;
   message: string;
   showButtonText: string;
   showFeedback: boolean;
-  feedback: Object;
-  submission: Object;
   error: boolean;
   errorMessage: string;
 }
@@ -20,8 +17,6 @@ export const defaultPresentationState = {
 };
 
 export const defaultApplicationState = {
-  feedback: <Object> null,
-  submission: <Object> null,
   error: <boolean> null,
   errorMessage: <string> ''
 };
@@ -42,10 +37,15 @@ export function reducer ( state = defaultState, action: AppActions ): State {
         showFeedback: true
       };
 
+    case AppActionTypes.CloseEnterFeedbackModal:
+      return {
+        ...state,
+        error: null,
+        showFeedback: false
+      };
+
   }
 
-  return defaultState;
+  return state;
 
 }
-
-export const accessors = utilities.createAccessors( defaultState );

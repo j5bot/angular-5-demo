@@ -1,3 +1,7 @@
+@import '../../../themes/current.scss';
+
+$app-mat-card-border: mat-color($primary, 100);
+
 .mat-raised-button.button-with-icon > span {
   display: flex;
   flex-direction: row;
@@ -7,7 +11,7 @@
 }
 mat-card {
   align-items: center;
-  border: solid 50px #c0c2c4;
+  border: solid 50px $app-mat-card-border;
   border-radius: 55vw;
   display: flex;
   flex-direction: column;
