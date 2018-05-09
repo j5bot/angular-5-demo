@@ -8,6 +8,8 @@ import { Feedback } from '../../models/feedback';
 })
 export class SubmitFeedbackComponent {
 
+  @Input() submitted: boolean;
+  @Input() confirmed: boolean;
   @Input() feedback: Feedback;
 
 }

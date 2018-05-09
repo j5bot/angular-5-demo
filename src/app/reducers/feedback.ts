@@ -64,8 +64,7 @@ export function reducer ( state = defaultState, action: any ) {
       target = target || 'submission';
       flag = flag || 'confirmed';
       decorate = decorate || {
-        feedback: null,
-        submitted: false
+        feedback: null
       };
 
       // empty submission

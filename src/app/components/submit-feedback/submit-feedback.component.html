@@ -1,8 +1,7 @@
 <div *ngIf="feedback">
 
-  <h2>
-    Please verify your feedback:
-  </h2>
+  <h2 *ngIf="!confirmed">Please verify your feedback:</h2>
+  <h2 *ngIf="confirmed">Thank you for your feedback!:</h2>
   <div class="name feedback-confirm" *ngIf="feedback.name">
     <span class="label">Name</span> <span class="name value">${{ feedback.name }}</span>
   </div>
