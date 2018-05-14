@@ -1,7 +1,23 @@
 import { Input, Output, Component, EventEmitter } from '@angular/core';
 import { MatFormField, MatRipple } from '@angular/material';
 import { MatInput } from '@angular/material/input';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
+import {
+  PHONE_VALIDATION, PHONE_VALIDATION_ALLOW_EMPTY
+} from '../../../utilities/regexes';
+
+const emailValidator = (c: AbstractControl) => {
+  if (!c.value) {
+    return null;
+  }
+  return Validators.email(c);
+};
 
 @Component({
   selector: 'app-enter-feedback',
@@ -22,8 +38,8 @@ export class EnterFeedbackComponent {
 
   formDefinition = {
     name: [''],
-    phone: [''],
-    email: [''],
+    phone: ['', Validators.pattern( PHONE_VALIDATION ) ],
+    email: ['', emailValidator ],
     feedback: ['', Validators.required ]
   };
 
@@ -49,12 +65,21 @@ export class EnterFeedbackComponent {
     });
   }
 
+  getFormControl (name) {
+    return this.feedbackForm.controls[ name ] || { errors: {} };
+  }
+
+  changeValue (field, value) {
+    debugger;
+    this.onChange.emit({ field, value });
+  }
+
   setupEmitOnChange () {
     Object.keys(this.formDefinition).map( (field) => {
       const fieldControl: AbstractControl = this.feedbackForm.get(field);
       fieldControl.valueChanges.forEach(
         (value: string) => {
-          this.onChange.emit({ field, value });
+          this.changeValue(field, value);
         }
       );
     });

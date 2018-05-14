@@ -2,3 +2,18 @@ form {
   display: flex;
   flex-direction: column;
 }
+
+.mat-form-field + .mat-form-field {
+  margin-top: 8px;
+}
+
+.mat-error {
+  display: none;
+
+  &.invalid,
+  &.badformat,
+  &.bademail,
+  &.required {
+    display: inherit;
+  }
+}
