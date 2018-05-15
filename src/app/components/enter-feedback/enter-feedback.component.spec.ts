@@ -1,86 +1,172 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DebugElement } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed
+} from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
 import { marbles } from 'rxjs-marbles/jest';
-import { testObservable } from '../../../../modules/test-utilities';
 
-import { StoreModule, Store } from '@ngrx/store';
-import { reducers, State } from '../../reducers';
 import { Observable } from 'rxjs/Observable';
+import {
+  AbstractControl,
+  ReactiveFormsModule
+} from '@angular/forms';
+
 import { MaterialModule } from '../../../modules/material-module';
-
-//import { MatInput } from '@angular/material/input';
-
 import { EnterFeedbackComponent } from './enter-feedback.component';
-
-import * as FeedbackActions from '../../actions/feedback';
-import * as fromFeedback from '../../reducers/feedback';
-import * as selectors from '../../selectors/selectors';
 
 describe('EnterFeedbackComponent', () => {
   let fixture: ComponentFixture<EnterFeedbackComponent>;
-  let store: Store<fromFeedback.State>;
   let instance: EnterFeedbackComponent;
-  let dispatch: any;
 
-  beforeAll( () => {
+  const EMPTY_FORM = {
+    name: '',
+    phone: '',
+    email: '',
+    feedback: ''
+  };
+
+  const STORED_FEEDBACK = {
+    name: 'Matt Groening',
+    phone: '555-555-1212',
+    email: 'matt@bongocomics.com',
+    feedback:
+    `I just had a few things to say and so I thought ...
+
+  "You know, why not say them?"`
+  };
+
+  const CHANGES = {
+    name: 'Homer J.',
+    phone: '(555) 555-1212 # 1234',
+    email: 'homerj@bongocomics.com',
+    feedback: `I for one embrace our new insect overlords.`
+  };
+
+  const ERRORS = {
+    phone: '555-1212 something not so good',
+    email: 'notanemail.address',
+    feedback: null
+  };
+
+  beforeEach( () => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule,
-        StoreModule.forRoot(reducers)
+        ReactiveFormsModule,
+        NoopAnimationsModule
       ],
       declarations: [
-        // MatInput,
-        // MatFormField,
-        // MatRipple,
         EnterFeedbackComponent
       ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(EnterFeedbackComponent);
-    store = TestBed.get(Store);
     instance = fixture.componentInstance;
+    fixture.detectChanges();
   });
-
-  beforeEach( () => {
-    dispatch = spyOn(store, 'dispatch');
-  } );
 
   it('should not be undefined', () => {
     expect(instance).toBeTruthy();
   });
 
   /**
-   * Container components are used as integration points for connecting
-   * the store to presentational components and dispatching
-   * actions to the store.
-   *
-   * Container methods that dispatch events are like a component's output
-   * observables.  Container properties that select state from store are like a
-   * component's input properties.  If pure components are functions of their
-   * inputs, containers are functions of state
-   *
-   * Traditionally you would query the components rendered template
-   * to validate its state. Since the components are analogous to
-   * pure functions, we take snapshots of these components for a given state
-   * to validate the rendered output and verify the component's output
-   * against changes in state.
-   */
+  * Container components are used as integration points for connecting
+  * the store to presentational components and dispatching
+  * actions to the store.
+  *
+  * Container methods that dispatch events are like a component's output
+  * observables.  Container properties that select state from store are like a
+  * component's input properties.  If pure components are functions of their
+  * inputs, containers are functions of state
+  *
+  * Traditionally you would query the components rendered template
+  * to validate its state. Since the components are analogous to
+  * pure functions, we take snapshots of these components for a given state
+  * to validate the rendered output and verify the component's output
+  * against changes in state.
+  */
+  it('should match previous snapshot', () => {
+    expect(fixture).toMatchSnapshot();
+  });
 
-   it('should match previous snapshot', async(() => {
-     fixture.detectChanges();
+  describe('should emit onchange events when values change', () => {
 
-     expect(fixture).toMatchSnapshot();
-   }));
+    Object.keys(CHANGES).forEach(
+      (prop) => {
+        it(`should emit a ${ prop } change event when setting the ${ prop }`,
+          () => {
+            const control: AbstractControl = instance.feedbackForm.controls[ prop ];
+            spyOn(instance, 'changeValue');
 
-   it('should emit an onchange event when a value changes', () => {
-     spyOn(instance, 'setupEmitOnChange');
+            //             console.log(`control ${ prop }
+            // errors: ${ JSON.stringify(control.errors) }
+            // valid: ${ control.valid }
+            // value: ${ control.value }
+            // status: ${ control.status }
+            // pristine: ${ control.pristine }
+            // untouched: ${ control.untouched }`);
 
-     const $event: any = {};
-     const action = new FeedbackActions.SubmitFeedback($event);
+            control.setValue(CHANGES[ prop ]);
 
-     instance.setupEmitOnChange($event);
+            fixture.detectChanges();
 
-     expect(dispatch).toHaveBeenCalledWith(action);
-   });
+            expect(instance.changeValue).toHaveBeenCalledWith(prop, CHANGES[ prop ]);
+            const errors = control.errors || {};
+
+            //             console.log(`compare ${ prop }
+            // errors: ${ JSON.stringify(control.errors) }
+            // valid: ${ control.valid }
+            // value: ${ control.value }
+            // status: ${ control.status }
+            // pristine: ${ control.pristine }
+            // untouched: ${ control.untouched }`);
+
+            expect(control.valid).toBeTrue();
+            expect(control.errors).toBeNull();
+          }
+        );
+      }
+    );
+
+    Object.keys(ERRORS).forEach(
+      (prop) => {
+        it(`should have a ${ prop } error property after setting the ${ prop }`,
+          () => {
+            const control: AbstractControl = instance.feedbackForm.controls[ prop ];
+
+            spyOn(instance, 'changeValue');
+
+            //             console.log(`control ${ prop }
+            // errors: ${ JSON.stringify(control.errors) }
+            // valid: ${ control.valid }
+            // value: ${ control.value }
+            // status: ${ control.status }
+            // pristine: ${ control.pristine }
+            // untouched: ${ control.untouched }`);
+
+            control.setValue(ERRORS[ prop ]);
+
+            fixture.detectChanges();
+
+            expect(instance.changeValue).toHaveBeenCalledWith(prop, ERRORS[ prop ]);
+            const errors = control.errors;
+
+            //             console.log(`control ${ prop }
+            // errors: ${ JSON.stringify(control.errors) }
+            // valid: ${ control.valid }
+            // value: ${ control.value }
+            // status: ${ control.status }
+            // pristine: ${ control.pristine }
+            // untouched: ${ control.untouched }`);
+
+            expect(errors).toBeObject();
+            expect(control.valid).toBeFalse();
+          });
+        }
+      );
+    });
+
+  });
 
 });

@@ -1,4 +1,7 @@
-import * as testUtilities from '../../../modules/test-utilities';
+import {
+  expectStateChange,
+  expectDefaultState
+} from '../../../modules/test-utilities';
 import { reducer, defaultState } from './feedback';
 import * as fromFeedback from './feedback';
 import * as FeedbackActions from '../actions/feedback';
@@ -29,8 +32,8 @@ nowhere, I can't think of another place that I'd rather call home.`
 
   describe('undefined action', () => {
 
-    xit('should return the default state and match the previously defined default state', () => {
-      testUtilities.expectDefaultState({ state, reducer });
+    it('should return the default state and match the previously defined default state', () => {
+      expectDefaultState({ state, reducer });
     });
 
   });
@@ -41,7 +44,7 @@ nowhere, I can't think of another place that I'd rather call home.`
 
     it('should clear the form and hide the modal', () => {
 
-      testUtilities.expectStateChange({
+      expectStateChange({
         DispatchedAction: CancelAction,
         state,
         reducer,
@@ -65,7 +68,7 @@ nowhere, I can't think of another place that I'd rather call home.`
 
       it('should reject an empty object', () => {
 
-        testUtilities.expectStateChange({
+        expectStateChange({
           input: noFeedback,
           DispatchedAction: SubmitAction,
           reducer,
@@ -83,7 +86,7 @@ nowhere, I can't think of another place that I'd rather call home.`
 
         const input = completeContactInfo;
 
-        testUtilities.expectStateChange({
+        expectStateChange({
           DispatchedAction: SubmitAction,
           state: { ...state, feedback: input },
           reducer,
@@ -99,7 +102,7 @@ nowhere, I can't think of another place that I'd rather call home.`
       it('should store the minimum form values in the store as in progress', () => {
         const input = feedbackInfo;
 
-        testUtilities.expectStateChange({
+        expectStateChange({
           DispatchedAction: SubmitAction,
           reducer,
           state: { ...state, feedback: input },
@@ -115,7 +118,7 @@ nowhere, I can't think of another place that I'd rather call home.`
       it('should store a complete form in the store as in progress', () => {
         const input = fullFeedback;
 
-        testUtilities.expectStateChange({
+        expectStateChange({
           DispatchedAction: SubmitAction,
           reducer,
           state: { ...state, feedback: input },
@@ -142,7 +145,7 @@ nowhere, I can't think of another place that I'd rather call home.`
 
         const input = noFeedback;
 
-        testUtilities.expectStateChange({
+        expectStateChange({
           DispatchedAction: ConfirmAction,
           state: { ...state, feedback: input },
           reducer,
@@ -159,7 +162,7 @@ nowhere, I can't think of another place that I'd rather call home.`
 
         const input = completeContactInfo;
 
-        testUtilities.expectStateChange({
+        expectStateChange({
           DispatchedAction: ConfirmAction,
           state: { ...state, feedback: input },
           reducer,
@@ -176,7 +179,7 @@ nowhere, I can't think of another place that I'd rather call home.`
 
         const input = feedbackInfo;
 
-        testUtilities.expectStateChange({
+        expectStateChange({
           DispatchedAction: ConfirmAction,
           reducer,
           state: { ...state, feedback: input },
@@ -194,7 +197,7 @@ nowhere, I can't think of another place that I'd rather call home.`
       it('should confirm a complete feedback object', () => {
         const input = fullFeedback;
 
-        testUtilities.expectStateChange({
+        expectStateChange({
           DispatchedAction: ConfirmAction,
           reducer,
           state: { ...state, feedback: input },
@@ -217,7 +220,7 @@ nowhere, I can't think of another place that I'd rather call home.`
 
       it('should return user to the feedback form', () => {
 
-        testUtilities.expectStateChange({
+        expectStateChange({
           DispatchedAction: ChangeAction,
           reducer,
           state,

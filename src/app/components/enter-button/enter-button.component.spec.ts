@@ -1,8 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DebugElement } from '@angular/core';
-
 import { MaterialModule } from '../../../modules/material-module';
-
 import { EnterButtonComponent } from './enter-button.component';
 
 /**
@@ -19,8 +16,6 @@ import { EnterButtonComponent } from './enter-button.component';
 describe('EnterButtonComponent', () => {
   let fixture: ComponentFixture<EnterButtonComponent>;
   let instance: EnterButtonComponent;
-  let debugElement: DebugElement;
-  let nativeElement: any;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -34,8 +29,6 @@ describe('EnterButtonComponent', () => {
 
     fixture = TestBed.createComponent(EnterButtonComponent);
     instance = fixture.componentInstance;
-    debugElement = fixture.debugElement;
-    nativeElement = debugElement.nativeElement;
 
     fixture.detectChanges();
 

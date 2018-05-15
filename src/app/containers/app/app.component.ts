@@ -25,56 +25,26 @@ export class AppComponent {
       this.title$ = this.store.pipe(select(
         selectors.getAppTitle
       ));
-      this.title$.subscribe(
-        (value) => {
-          console.log(`app.title$ = ${ value }` );
-        }
-      );
 
       this.message$ = this.store.pipe(select(
         selectors.getAppMessage
       ));
-      this.message$.subscribe(
-        (value) => {
-          console.log(`app.message$ = ${ value }` );
-        }
-      );
 
       this.showButtonText$ = this.store.pipe(select(
         selectors.getAppShowButtonText
       ));
-      this.showButtonText$.subscribe(
-        (value) => {
-          console.log(`app.showButtonText$ = ${ value }` );
-        }
-      );
 
       this.showFeedback$ = this.store.pipe(select(
         selectors.getAppShowFeedback
       ));
-      this.showFeedback$.subscribe(
-        (value) => {
-          console.log(`app.showFeedback$ = ${ value }` );
-        }
-      );
 
       this.error$ = this.store.pipe(select(
         selectors.getAppError
       ));
-      this.error$.subscribe(
-        (value) => {
-          console.log(`app.error$ = ${ value }` );
-        }
-      );
 
       this.errorMessage$ = this.store.pipe(select(
         selectors.getAppErrorMessage
       ));
-      this.errorMessage$.subscribe(
-        (value) => {
-          console.log(`app.errorMessage$ = ${ value }` );
-        }
-      );
 
   }
 

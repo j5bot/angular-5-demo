@@ -1,33 +1,29 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { StoreModule, Store, combineReducers } from '@ngrx/store';
-
 import { SubmitFeedbackComponent } from './submit-feedback.component';
-import * as SubmitFeedbackActions from '../../actions';
-import * as fromSubmitFeedback from '../../reducers';
+import { Feedback } from '../../models/feedback';
 
 describe('SubmitFeedbackComponent', () => {
   let fixture: ComponentFixture<SubmitFeedbackComponent>;
-  let store: Store<fromApp.State>;
   let instance: SubmitFeedbackComponent;
-  let dispatch: any;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        StoreModule.forRoot({
-          app: combineReducers(fromSubmitFeedback.reducers)
-        })
-      ],
+      imports: [],
       declarations: [
         SubmitFeedbackComponent
       ]
     });
 
     fixture = TestBed.createComponent(SubmitFeedbackComponent);
-    store = TestBed.get(Store);
     instance = fixture.componentInstance;
 
-    dispatch = spyOn(store, 'dispatch');
+    instance.submitted = true;
+    instance.confirmed = false;
+    instance.feedback = {
+      feedback: `This is my feedback.`
+    } as Feedback;
+
+    fixture.detectChanges();
   });
 
   /**
@@ -46,37 +42,41 @@ describe('SubmitFeedbackComponent', () => {
    * to validate the rendered output and verify the component's output
    * against changes in state.
    */
-   xit('should match previous snapshot', () => {
-     fixture.detectChanges();
+   it('should not be undefined', () => {
+     expect(instance).toBeTruthy();
+   });
 
+   it('should match previous snapshot', () => {
      expect(fixture).toMatchSnapshot();
    });
 
-   xit('should dispatch a confirm feedback event', () => {
-     const $event: any = {};
-     const action = new SubmitFeedbackActions.ConfirmFeedback($event);
-
-     instance.confirm($event);
-
-     expect(dispatch).toHaveBeenCalledWith(action);
+   it('should have a submitted flag (set to true)', () => {
+     expect(instance.submitted).toBeTrue();
    });
 
-   xit('should dispatch a change feedback event', () => {
-     const $event: any = {};
-     const action = new SubmitFeedbackActions.ChangeFeedback($event);
-
-     instance.change($event);
-
-     expect(dispatch).toHaveBeenCalledWith(action);
+   it('should have a confirmed flag (set to false)', () => {
+     expect(instance.confirmed).toBeFalse();
    });
 
-   xit('should dipatch a cancel feedback event', () => {
-     const $event: any = {};
-     const action = new SubmitFeedbackActions.CancelFeedback($event);
-
-     instance.cancel($event);
-
-     expect(dispatch).toHaveBeenCalledWith(action);
+   it('should have required feedback properties', () => {
+     expect(instance.feedback.feedback).toBeNonEmptyString();
    });
 
+   it('should accept non-required feedback properties (name)', () => {
+     instance.feedback.name = 'Testing Tester';
+     fixture.detectChanges();
+     expect(instance.feedback.name).toBeNonEmptyString();
+   });
+
+   it('should accept non-required feedback properties (phone)', () => {
+     instance.feedback.phone = '555-555-1212';
+     fixture.detectChanges();
+     expect(instance.feedback.phone).toBeNonEmptyString();
+   });
+
+   it('should accept non-required feedback properties (email)', () => {
+     instance.feedback.email = 'tester@testing.com';
+     fixture.detectChanges();
+     expect(instance.feedback.email).toBeNonEmptyString();
+   });
 });

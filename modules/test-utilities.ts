@@ -13,20 +13,10 @@ export const expectedState: any = (state, props) => {
 export const expectStateChange = (
   { input, DispatchedAction, reducer, state, change }:
   { input?: any,
-    DispatchedAction? any,
+    DispatchedAction?: any,
     reducer: any,
     state: any,
     change?: any }
-  // {
-  //   // { input = null }: { input?: any },
-  //   // { DispatchedAction = null }: { DispatchedAction?: Action },
-  //   input,
-  //   DispatchedAction,
-  //   reducer,
-  //   state,
-  //   change
-  //   // { change = null }: { change?: Object }
-  // }
 ) => {
 
   const createAction = DispatchedAction ?

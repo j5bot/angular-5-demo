@@ -1,17 +1,29 @@
 <form [formGroup]="feedbackForm">
   <mat-form-field>
-    <input matInput type="text" placeholder="NAME" formControlName="name">
+    <input matInput type="text" placeholder="NAME" formControlName="name" #name>
+    <mat-error
+      [className]="{ invalid: name.errors && !name.errors.valid }"
+      >Name is not valid.</mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput type="text" placeholder="PHONE" formControlName="phone">
+    <input matInput type="text" placeholder="PHONE" formControlName="phone" #phone>
+    <mat-error
+      [className]="{ badformat: phone.errors && phone.errors.phone }"
+      >Phone number is not in a recognizable format.  Did you include area code, etc?</mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput type="text" placeholder="EMAIL" formControlName="email">
+    <input matInput type="text" name="email" placeholder="EMAIL" formControlName="email" #email>
+    <mat-error
+      [className]="{ bademail: email.errors && email.errors.email }"
+      >Email address is not valid.</mat-error>
   </mat-form-field>
 
   <mat-form-field class="feedback-container">
-    <textarea matInput rows="15" placeholder="FEEDBACK" formControlName="feedback"></textarea>
+    <textarea matInput rows="15" placeholder="FEEDBACK" formControlName="feedback" #feedback></textarea>
+    <mat-error
+      [className]="{ required: feedback.errors && feedback.errors.required }"
+      >You must provide feedback in order to continue.</mat-error>
   </mat-form-field>
 </form>
