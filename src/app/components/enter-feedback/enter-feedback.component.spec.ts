@@ -2,10 +2,6 @@ import {
   ComponentFixture,
   TestBed
 } from '@angular/core/testing';
-import {
-  Input, Output,
-  DebugElement
-} from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { marbles } from 'rxjs-marbles/jest';
@@ -13,8 +9,6 @@ import { marbles } from 'rxjs-marbles/jest';
 import { Observable } from 'rxjs/Observable';
 import {
   AbstractControl,
-  FormControl,
-  FormsModule,
   ReactiveFormsModule
 } from '@angular/forms';
 
@@ -39,7 +33,7 @@ describe('EnterFeedbackComponent', () => {
     feedback:
     `I just had a few things to say and so I thought ...
 
-    "You know, why not say them?"`
+  "You know, why not say them?"`
   };
 
   const CHANGES = {
@@ -169,15 +163,9 @@ describe('EnterFeedbackComponent', () => {
             expect(errors).toBeObject();
             expect(control.valid).toBeFalse();
           });
-      }
-    );
-  });
-
-    // it('should emit a name change event when setting the name', () => {
-    //   spyOn(instance, 'changeValue');
-    //   instance.changeValue('name', CHANGES.name);
-    //   expect(instance.changeValue).toHaveBeenCalledWith('name', CHANGES.name);
-    // });
+        }
+      );
+    });
 
   });
 

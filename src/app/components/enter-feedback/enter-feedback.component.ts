@@ -1,10 +1,7 @@
 import { Input, Output, Component, EventEmitter } from '@angular/core';
-import { MatFormField, MatRipple } from '@angular/material';
-import { MatInput } from '@angular/material/input';
 import {
   AbstractControl,
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators
 } from '@angular/forms';
@@ -12,11 +9,13 @@ import {
   PHONE_VALIDATION, PHONE_VALIDATION_ALLOW_EMPTY
 } from '../../../utilities/regexes';
 
-const emailValidator = (c: AbstractControl) => {
-  if (!c.value) {
+import { Feedback, FeedbackChange } from '../../models/feedback';
+
+const emailValidator = (control: AbstractControl) => {
+  if (!control.value) {
     return null;
   }
-  return Validators.email(c);
+  return Validators.email(control);
 };
 
 @Component({
@@ -26,11 +25,9 @@ const emailValidator = (c: AbstractControl) => {
 })
 export class EnterFeedbackComponent {
 
-  @Input() feedback: any;
-  @Output() onChange = new EventEmitter<any>();
+  @Input() feedback: Feedback;
+  @Output() onChange = new EventEmitter<FeedbackChange>();
   feedbackForm: FormGroup;
-  name: string;
-  ffJSON: string;
 
   constructor ( private formBuilder: FormBuilder) {
     this.createForm();
@@ -49,28 +46,9 @@ export class EnterFeedbackComponent {
       this.feedbackForm.setValue( this.feedback );
     }
     this.setupEmitOnChange();
-
-    const fields = ['name', 'feedback'];
-    fields.map( (field: string) => {
-      const formControl = this.feedbackForm.get(field);
-      formControl.valueChanges.forEach(
-        (value: string) => {
-          this[field] = value;
-          this.ffJSON = `
-          ${ Object.keys(this.feedbackForm).join(', ') } |
-          ${ JSON.stringify(this.feedbackForm.value) }
-          `;
-        }
-      );
-    });
-  }
-
-  getFormControl (name) {
-    return this.feedbackForm.controls[ name ] || { errors: {} };
   }
 
   changeValue (field, value) {
-    debugger;
     this.onChange.emit({ field, value });
   }
 
