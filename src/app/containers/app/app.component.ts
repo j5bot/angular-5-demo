@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs/observable';
+import { Observable } from 'rxjs/Observable';
 import * as AppActions from '../../actions/app';
 import * as fromApp from '../../reducers/app';
 import * as selectors from '../../selectors/selectors';

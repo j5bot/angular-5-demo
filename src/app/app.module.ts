@@ -17,7 +17,7 @@ import { EnterButtonComponent } from './components/enter-button/enter-button.com
 import { FeedbackComponent } from './containers/feedback/feedback.component';
 import { EnterFeedbackComponent } from './components/enter-feedback/enter-feedback.component';
 import { SubmitFeedbackComponent } from './components/submit-feedback/submit-feedback.component';
-import { reducers } from './reducers';
+import { reducers, metaReducers } from './reducers';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,8 @@ import { reducers } from './reducers';
     MaterialModule,
     OverlayModule,
     ReactiveFormsModule,
-    StoreModule.forRoot( reducers ),
+    StoreModule.forRoot( reducers, {
+      metaReducers } ),
     StoreDevtoolsModule.instrument()
   ],
   entryComponents: [

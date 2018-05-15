@@ -33,7 +33,7 @@ describe('EnterFeedbackComponent', () => {
     feedback:
     `I just had a few things to say and so I thought ...
 
-  "You know, why not say them?"`
+    "You know, why not say them?"`
   };
 
   const CHANGES = {
@@ -165,8 +165,6 @@ describe('EnterFeedbackComponent', () => {
           });
         }
       );
-    });
-
-  });
-
+    }
+  );
 });

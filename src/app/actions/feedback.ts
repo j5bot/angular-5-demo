@@ -39,7 +39,7 @@ export class CancelFeedback implements Action {
 }
 
 export type FeedbackActions =
-  | ChangeFeedback
+  | ChangeForm
   | SubmitFeedback
   | ConfirmFeedback
   | ChangeFeedback
