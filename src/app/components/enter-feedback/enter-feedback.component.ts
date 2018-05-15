@@ -1,7 +1,22 @@
 import { Input, Output, Component, EventEmitter } from '@angular/core';
-import { MatFormField, MatRipple } from '@angular/material';
-import { MatInput } from '@angular/material/input';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators
+} from '@angular/forms';
+import {
+  PHONE_VALIDATION, PHONE_VALIDATION_ALLOW_EMPTY
+} from '../../../utilities/regexes';
+
+import { Feedback, FeedbackChange } from '../../models/feedback';
+
+const emailValidator = (control: AbstractControl) => {
+  if (!control.value) {
+    return null;
+  }
+  return Validators.email(control);
+};
 
 @Component({
   selector: 'app-enter-feedback',
@@ -10,11 +25,9 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 })
 export class EnterFeedbackComponent {
 
-  @Input() feedback: any;
-  @Output() onChange = new EventEmitter<any>();
+  @Input() feedback: Feedback;
+  @Output() onChange = new EventEmitter<FeedbackChange>();
   feedbackForm: FormGroup;
-  name: string;
-  ffJSON: string;
 
   constructor ( private formBuilder: FormBuilder) {
     this.createForm();
@@ -22,8 +35,8 @@ export class EnterFeedbackComponent {
 
   formDefinition = {
     name: [''],
-    phone: [''],
-    email: [''],
+    phone: ['', Validators.pattern( PHONE_VALIDATION ) ],
+    email: ['', emailValidator ],
     feedback: ['', Validators.required ]
   };
 
@@ -33,20 +46,10 @@ export class EnterFeedbackComponent {
       this.feedbackForm.setValue( this.feedback );
     }
     this.setupEmitOnChange();
+  }
 
-    const fields = ['name', 'feedback'];
-    fields.map( (field: string) => {
-      const formControl = this.feedbackForm.get(field);
-      formControl.valueChanges.forEach(
-        (value: string) => {
-          this[field] = value;
-          this.ffJSON = `
-          ${ Object.keys(this.feedbackForm).join(', ') } |
-          ${ JSON.stringify(this.feedbackForm.value) }
-          `;
-        }
-      );
-    });
+  changeValue (field, value) {
+    this.onChange.emit({ field, value });
   }
 
   setupEmitOnChange () {
@@ -54,7 +57,7 @@ export class EnterFeedbackComponent {
       const fieldControl: AbstractControl = this.feedbackForm.get(field);
       fieldControl.valueChanges.forEach(
         (value: string) => {
-          this.onChange.emit({ field, value });
+          this.changeValue(field, value);
         }
       );
     });
