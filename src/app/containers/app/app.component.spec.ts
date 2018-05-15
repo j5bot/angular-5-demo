@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { marbles } from 'rxjs-marbles/jest';
 import { testObservable } from '../../../../modules/test-utilities';
 
@@ -11,7 +11,6 @@ import { MaterialModule } from '../../../modules/material-module';
 import { AppComponent } from './app.component';
 import * as AppActions from '../../actions/app';
 import * as fromApp from '../../reducers/app';
-import * as selectors from '../../selectors/selectors';
 
 const defaultState = fromApp.defaultPresentationState;
 
@@ -74,7 +73,7 @@ describe('AppComponent', () => {
        fn: fixture.whenStable.bind(fixture),
        marble: m,
        expected: defaultState.title,
-       result: instance.title
+       result: instance.title$
      });
 
     }));
@@ -85,7 +84,7 @@ describe('AppComponent', () => {
        fn: fixture.whenStable.bind(fixture),
        marble: m,
        expected: defaultState.message,
-       result: instance.message
+       result: instance.message$
      });
 
    }));
@@ -96,7 +95,7 @@ describe('AppComponent', () => {
        fn: fixture.whenStable.bind(fixture),
        marble: m,
        expected: defaultState.showButtonText,
-       result: instance.showButtonText
+       result: instance.showButtonText$
      });
 
    }));
@@ -107,7 +106,7 @@ describe('AppComponent', () => {
        fn: fixture.whenStable.bind(fixture),
        marble: m,
        expected: defaultState.showFeedback,
-       result: instance.showFeedback
+       result: instance.showFeedback$
      });
 
    }));
