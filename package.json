@@ -22,7 +22,7 @@
     "rxjs": "^5.5.10",
     "zone.js": "^0.8.26"
   },
-  "version": "0.3.2",
+  "version": "0.3.3",
   "license": "NONE",
   "scripts": {
     "ng": "ng",
