@@ -13,6 +13,7 @@ import {
   MatDialogTitle
 } from '@angular/material';
 
+import * as AppActions from '../../actions/app';
 import * as FeedbackActions from '../../actions/feedback';
 import * as fromFeedback from '../../reducers/feedback';
 import * as selectors from '../../selectors/selectors';
@@ -25,6 +26,7 @@ import * as selectors from '../../selectors/selectors';
 export class FeedbackComponent {
 
   title$: Observable<string>;
+  validated$: Observable<boolean>;
   submitted$: Observable<boolean>;
   confirmed$: Observable<boolean>;
   feedback$: Observable<any>;
@@ -37,8 +39,16 @@ export class FeedbackComponent {
     private store: Store<fromFeedback.State>
   ) {
 
+    this.dialogRef.afterClosed().subscribe( (result) => {
+      this.close(`closing feedback form: ${ result }`);
+    });
+
     this.title$ = this.store.pipe(select(
       selectors.getFeedbackTitle
+    ));
+
+    this.validated$ = this.store.pipe(select(
+      selectors.getFeedbackValidated
     ));
 
     this.submitted$ = this.store.pipe(select(
@@ -67,9 +77,21 @@ export class FeedbackComponent {
 
   }
 
+  close ( result: string ) {
+    return this.store.dispatch(
+      new AppActions.CloseEnterFeedbackModal(result)
+    );
+  }
+
   changeForm ( $event: FeedbackActions.FeedbackActionTypes ) {
     return this.store.dispatch(
       new FeedbackActions.ChangeForm($event)
+    );
+  }
+
+  validate ( valid: boolean ) {
+    return this.store.dispatch(
+      new FeedbackActions.FeedbackValidated( valid )
     );
   }
 

@@ -7,6 +7,7 @@
   <mat-dialog-content class="feedback-form-container">
     <app-enter-feedback [ngClass]="{ 'hidden': (confirmed$ | async) || (submitted$ | async) }"
       (onChange)="changeForm($event)"
+      (onValidate)="validate($event)"
       [feedback]="feedback$ | async">
     </app-enter-feedback>
     <app-submit-feedback [ngClass]="{ 'hidden': !(submitted$ | async) }"
@@ -23,6 +24,7 @@
       <button
         mat-button
         class="submit-button"
+        [disabled]="!( validated$ | async)"
         [ngClass]="{ 'hidden': (submitted$ | async) || (confirmed$ | async) }"
         (click)="submit($event)">SUBMIT</button>
       <button

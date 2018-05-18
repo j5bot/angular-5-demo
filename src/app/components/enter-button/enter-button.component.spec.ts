@@ -34,7 +34,6 @@ describe('EnterButtonComponent', () => {
 
     instance.text = 'Foo';
     instance.icon = 'chat_bubble_outline';
-    instance.click = ($event) => console.log($event);
 
     fixture.detectChanges();
 
@@ -64,7 +63,7 @@ describe('EnterButtonComponent', () => {
 
   it('should emit an event if it has been clicked', () => {
     spyOn(instance, 'click');
-    instance.click();
+    instance.click({});
 
     expect(instance.click).toHaveBeenCalledTimes(1);
   });

@@ -31,7 +31,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { marbles } from 'rxjs-marbles/jest';
 import { testObservable } from '../../../../modules/test-utilities';
 
-import * as FeedbackActions from  '../../actions/feedback';
+import * as AppActions from '../../actions/app';
+import * as FeedbackActions from '../../actions/feedback';
 import * as fromFeedback from '../../reducers/feedback';
 import { MaterialModule } from '../../../modules/material-module';
 
@@ -112,12 +113,10 @@ describe('FeedbackComponent', () => {
 
   it('should render dialog', () => {
     expect(dialog).toBeTruthy();
-    // console.log(dialog);
   });
 
   it('should render dialogRef', () => {
     expect(dialogRef).toBeTruthy();
-    // console.log(dialogRef);
   });
 
   it('should render (overlay)', () => {
@@ -126,22 +125,15 @@ describe('FeedbackComponent', () => {
 
   it('should render instance', () => {
     expect(instance).toBeTruthy();
-    // console.log(instance);
   });
 
   it('should render (overlay container)', () => {
     expect(overlayContainer).toBeTruthy();
-    // console.log(overlayContainer);
-    // console.log(overlayContainer.getContainerElement());
   });
 
   it('should match snapshot (overlay container element)', () => {
     expect(overlayContainerElement).toMatchSnapshot();
   });
-
-  // it('should match snapshot (feedback component instance)', () => {
-  //   expect(instance).toMatchSnapshot();
-  // });
 
   it('should have the default title', marbles((m) => {
 
@@ -150,6 +142,17 @@ describe('FeedbackComponent', () => {
       marble: m,
       expected: defaultState.title,
       result: instance.title$
+    });
+
+  }));
+
+  it('should have the default validated flag', marbles((m) => {
+
+    testObservable({
+      fn: () => {},
+      marble: m,
+      expected: defaultState.validated,
+      result: instance.validated$
     });
 
   }));
@@ -208,6 +211,28 @@ describe('FeedbackComponent', () => {
     expect( dispatch ).toHaveBeenCalledWith( action );
   });
 
+  it('should dispatch a validate form action', () => {
+
+    const valid = true;
+    const action = new FeedbackActions.FeedbackValidated( valid );
+
+    instance.validate( valid );
+
+    expect( dispatch ).toHaveBeenCalledWith( action );
+
+  });
+
+  it('should dispatch an invalidate form action', () => {
+
+    const valid = false;
+    const action = new FeedbackActions.FeedbackValidated( valid );
+
+    instance.validate( valid );
+
+    expect( dispatch ).toHaveBeenCalledWith( action );
+
+  });
+
   it('should dispatch a submit action', () => {
 
     const $event: any = {};
@@ -248,65 +273,14 @@ describe('FeedbackComponent', () => {
     expect( dispatch ).toHaveBeenCalledWith( action );
   });
 
+  it('should dispatch a close feedback modal action', () => {
+    const result = 'closing feedbackform: foo';
+    const action = new AppActions.CloseEnterFeedbackModal( result );
+
+    instance.close( result );
+
+    expect( dispatch ).toHaveBeenCalledWith( action );
+
+  });
+
 });
-
-
-//   /**
-//    * Container components are used as integration points for connecting
-//    * the store to presentational components and dispatching
-//    * actions to the store.
-//    *
-//    * Container methods that dispatch events are like a component's output
-//    * observables.  Container properties that select state from store are like a
-//    * component's input properties.  If pure components are functions of their
-//    * inputs, containers are functions of state
-//    *
-//    * Traditionally you would query the components rendered template
-//    * to validate its state. Since the components are analogous to
-//    * pure functions, we take snapshots of these components for a given state
-//    * to validate the rendered output and verify the component's output
-//    * against changes in state.
-//    */
-//    it('should match previous snapshot', () => {
-//      fixture.detectChanges();
-//
-//      expect(fixture).toMatchSnapshot();
-//    });
-//
-//    xit('should dispatch an submit feedback event', () => {
-//      const $event: any = {};
-//      const action = new feedbackActions.SubmitFeedback($event);
-//
-//      instance.submit($event);
-//
-//      expect(dispatch).toHaveBeenCalledWith(action);
-//    });
-//
-//    xit('should dispatch a confirm feedback event', () => {
-//      const $event: any = {};
-//      const action = new feedbackActions.ConfirmFeedback($event);
-//
-//      instance.confirm($event);
-//
-//      expect(dispatch).toHaveBeenCalledWith(action);
-//    });
-//
-//    xit('should dispatch a change feedback event', () => {
-//      const $event: any = {};
-//      const action = new feedbackActions.ChangeFeedback($event);
-//
-//      instance.change($event);
-//
-//      expect(dispatch).toHaveBeenCalledWith(action);
-//    });
-//
-//    xit('should dipatch a cancel feedback event', () => {
-//      const $event: any = {};
-//      const action = new feedbackActions.CancelFeedback($event);
-//
-//      instance.cancel($event);
-//
-//      expect(dispatch).toHaveBeenCalledWith(action);
-//    });
-//
-// });
