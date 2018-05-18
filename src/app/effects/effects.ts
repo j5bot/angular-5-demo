@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { empty } from 'rxjs/observable/empty';
-// import { of } from 'rxjs/observable/of';
 import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
@@ -32,7 +31,6 @@ export class AppEffects {
           width: '600px',
           height: '600px'
         });
-        //TODO: dispatch action to store dialogRef
         return empty();
       })
     );
