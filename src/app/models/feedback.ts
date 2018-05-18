@@ -34,6 +34,7 @@ export class FeedbackChange {
 
 export class FeedbackState {
 
+  validated: Observable<boolean>;
   submitted: Observable<boolean>;
   confirmed: Observable<boolean>;
   error: Observable<boolean>;

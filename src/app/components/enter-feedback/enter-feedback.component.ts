@@ -27,6 +27,7 @@ export class EnterFeedbackComponent {
 
   @Input() feedback: Feedback;
   @Output() onChange = new EventEmitter<FeedbackChange>();
+  @Output() onValidate = new EventEmitter<boolean>();
   feedbackForm: FormGroup;
 
   constructor ( private formBuilder: FormBuilder) {
@@ -46,10 +47,17 @@ export class EnterFeedbackComponent {
       this.feedbackForm.setValue( this.feedback );
     }
     this.setupEmitOnChange();
+    this.setupEmitOnValidate();
   }
 
   changeValue (field, value) {
     this.onChange.emit({ field, value });
+  }
+
+  setValid (value) {
+    this.onValidate.emit(
+      value === 'INVALID' ?
+        false : true );
   }
 
   setupEmitOnChange () {
@@ -61,6 +69,14 @@ export class EnterFeedbackComponent {
         }
       );
     });
+  }
+
+  setupEmitOnValidate () {
+    this.feedbackForm.statusChanges.forEach(
+      (value: string) => {
+        this.setValid(value);
+      }
+    );
   }
 
 }

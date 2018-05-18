@@ -3,6 +3,7 @@ import { Feedback } from '../models/feedback';
 
 export interface State {
   title: string;
+  validated: boolean;
   submitted: boolean;
   confirmed: boolean;
   feedback: Feedback;
@@ -13,6 +14,7 @@ export interface State {
 
 export const defaultPresentationState = {
   title: <string> `Now's Your Chance!  Think BIG!`,
+  validated: <boolean> false,
   submitted: <boolean> false,
   confirmed: <boolean> false,
   feedback: <Feedback> null,
@@ -43,6 +45,12 @@ export function reducer ( state = defaultState, action: any ) {
       return {
         ...state,
         feedback: { ...state.feedback, [payload.field]: payload.value }
+      };
+
+    case FeedbackActionTypes.FeedbackValidated:
+      return {
+        ...state,
+        validated: payload
       };
 
     case FeedbackActionTypes.ChangeFeedback:

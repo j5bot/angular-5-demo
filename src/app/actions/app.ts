@@ -14,7 +14,7 @@ export class OpenEnterFeedbackModal implements Action {
 export class CloseEnterFeedbackModal implements Action {
   readonly type = AppActionTypes.CloseEnterFeedbackModal;
 
-  constructor( public payload: any ) {}
+  constructor( public payload: string ) {}
 }
 
 export type AppActions =
