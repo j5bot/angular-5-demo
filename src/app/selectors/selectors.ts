@@ -44,6 +44,11 @@ export const getFeedbackTitle = createSelector(
   (state: feedback.State) => state.title
 );
 
+export const getFeedbackValidated = createSelector(
+  featureSelectors.feedback,
+  (state: feedback.State) => state.validated
+);
+
 export const getFeedbackSubmitted = createSelector(
   featureSelectors.feedback,
   (state: feedback.State) => state.submitted
